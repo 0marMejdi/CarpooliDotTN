@@ -1,11 +1,12 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarpooliDotTN.Models;
 
-public class CarpooliDbContext : DbContext
+public class CarpooliDbContext : IdentityDbContext<User>
 {
-    public CarpooliDbContext(DbContextOptions options) :base(options){ }
+    public CarpooliDbContext(DbContextOptions<CarpooliDbContext> options) :base(options){ }
     
     
     
