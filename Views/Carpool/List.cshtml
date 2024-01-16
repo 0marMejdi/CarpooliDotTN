@@ -11,6 +11,36 @@
 <p>
     <a asp-action="Add">Create New</a>
 </p>
+@using (Html.BeginForm("List", "Carpool", FormMethod.Get))
+{
+    <div class="filter-container">
+        <div class="filter-group">
+            <label for="filterDepartureCity">Departure City:</label>
+            @Html.TextBox("filterDepartureCity", ViewData["FilterDepartureCity"] as string)
+        </div>
+
+        <div class="filter-group">
+            <label for="filterArrivalCity">Arrival City:</label>
+            @Html.TextBox("filterArrivalCity", ViewData["FilterArrivalCity"] as string)
+        </div>
+
+        <div class="filter-group">
+            <label for="filterPrice">Max Price:</label>
+            @Html.TextBox("filterPrice", ViewData["FilterPrice"] as string)
+        </div>
+
+        <div class="filter-group">
+            <label for="filterNumberOfPlaces">Number of Places:</label>
+            @Html.TextBox("filterNumberOfPlaces", ViewData["FilterNumberOfPlaces"] as string)
+        </div>
+
+        <div class="filter-actions">
+            <input type="submit" value="Filter" class="btn-filter" />
+            <a href="@Url.Action("List", "Carpool")" class="btn-clear-filter">Clear Filter</a>
+        </div>
+    </div>
+}
+
 <table class="table">
     <thead>
         <tr>

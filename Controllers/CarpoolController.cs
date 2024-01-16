@@ -39,10 +39,39 @@ namespace CarpooliDotTN.Controllers
         /// Displays a list of all carpools.
         /// </summary>
         /// <returns>View(carpools)</returns>
-        public IActionResult List()
+        public IActionResult List(string filterDepartureCity, string filterArrivalCity, decimal? filterPrice, int? filterNumberOfPlaces)
         {
+            IQueryable<Carpool> carpoolsQuery = _context.carpools;
+
+            if (!string.IsNullOrEmpty(filterDepartureCity))
+            {
+                carpoolsQuery = carpoolsQuery.Where(c => c.DepartureCity == filterDepartureCity);
+            }
+
+            if (!string.IsNullOrEmpty(filterArrivalCity))
+            {
+                carpoolsQuery = carpoolsQuery.Where(c => c.ArrivalCity == filterArrivalCity);
+            }
+
+            if (filterPrice.HasValue)
+            {
+                carpoolsQuery = carpoolsQuery.Where(c => c.Price <= ((double)filterPrice.Value));
+            }
+
+            if (filterNumberOfPlaces.HasValue)
+            {
+                carpoolsQuery = carpoolsQuery.Where(c => c.NumberOfPlaces >= filterNumberOfPlaces.Value);
+            }
+
+            ICollection<Carpool> carpools = carpoolsQuery.ToList();
+
+            // Pass the filter values to the view for display or further filtering
+            ViewData["FilterDepartureCity"] = filterDepartureCity;
+            ViewData["FilterArrivalCity"] = filterArrivalCity;
+            ViewData["FilterPrice"] = filterPrice;
+            ViewData["FilterNumberOfPlaces"] = filterNumberOfPlaces;
+
             string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            ICollection<Carpool> carpools = _context.carpools.ToList();
             return View(carpools);
         }
 

@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CarpooliDotTN")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af7be9f6f4a15f18dbc14e43735fc87a5f00831e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2aada1a2890fef231c0eb90086c4b404c3ff93a0")]
 [assembly: System.Reflection.AssemblyProductAttribute("CarpooliDotTN")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CarpooliDotTN")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
