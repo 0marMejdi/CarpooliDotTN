@@ -1,0 +1,19 @@
+@model List<Demand>
+<div class="container">
+    <div class="d-flex justify-content-between">
+        <h1>Demands List</h1>
+    </div>
+    <hr>
+    <div class="card-list col-md-6 col-sm-12">
+        @foreach (var item in Model)
+        {
+            <div class="card movie-card mb-3" style="text-align:center;">
+                <div class="card-header">
+                    <h2 >@Html.ActionLink(item.SubmissionTime + ": " + item.PassengerId, "Details", new { id = item.Id })</h2>
+                </div>
+            </div>
+        }
+    </div>
+
+
+</div>
