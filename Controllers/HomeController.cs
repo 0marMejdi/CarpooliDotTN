@@ -18,7 +18,6 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        _emailSender.SendEmail("ghassencherif22@gmail.com", "Hello","Hello");
         return View();
     }
 
