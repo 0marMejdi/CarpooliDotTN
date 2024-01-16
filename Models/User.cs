@@ -6,9 +6,8 @@ namespace CarpooliDotTN.Models
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public string? Ville { get; set; }
-        public string? Genre { get; set; }
-        public string? NumTel { get; set; }
+        public string? City { get; set; }
+        public string? Gender { get; set; }
 
     }
 }
