@@ -1,0 +1,31 @@
+@model Carpool
+<form asp-action="Add" method="post" >
+    <div class="form-group">
+        <label asp-for="ArrivalCity" class="control-label"></label>
+        <input asp-for="ArrivalCity" class="form-control" />
+        <span asp-validation-for="ArrivalCity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DepartureCity" class="control-label"></label>
+        <input asp-for="DepartureCity" class="form-control" />
+        <span asp-validation-for="DepartureCity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DepartureTime" class="control-label"></label>
+        <input asp-for="DepartureTime" class="form-control" />
+        <span asp-validation-for="DepartureTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" type="number" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NumberOfPlaces" class="control-label"></label>
+        <input type="number" asp-for="NumberOfPlaces" class="form-control" />
+        <span asp-validation-for="NumberOfPlaces" class="text-danger"></span> 
+    </div>
+    <div>
+        <input type="submit" value="Add" class="btn btn-default" />
+    </div>
+</form>

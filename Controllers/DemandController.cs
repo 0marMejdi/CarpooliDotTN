@@ -69,6 +69,7 @@ public class DemandController : Controller
     public IActionResult Details (Guid id){
         var demand = _context.demands
             .Include(d => d.Carpool)
+            .Include(d => d.Passenger)
             .Where(d => d.Id == id)
             .FirstOrDefault();
         if (demand == null) 

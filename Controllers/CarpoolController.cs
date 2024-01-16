@@ -27,11 +27,17 @@ namespace CarpooliDotTN.Controllers
         }
         public IActionResult Add()
         {
-            return View();
+            return View(new Carpool());
         }
         [HttpPost]
         public IActionResult Add(Carpool carpool)
         {
+            if (carpool != null)
+            {
+                carpool.CreationTime = DateTime.Now;
+                carpool.IsOpen = true;
+                carpool.OwnerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            }
             if (ModelState.IsValid)
             {
                 _context.carpools.Add(carpool);
@@ -39,7 +45,7 @@ namespace CarpooliDotTN.Controllers
                 return RedirectToAction("Index");
             }
             else
-            { return View(); }
+            { return Add(); }
         }
        public IActionResult Edit(Guid id)
         {

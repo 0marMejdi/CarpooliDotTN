@@ -1,0 +1,14 @@
+﻿@model Demand
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Demand Detail</h2>
+
+<div class="container card">
+    @Html.DisplayFor(model => model.SubmissionTime)
+    @Html.DisplayFor(model => model.Carpool.DepartureCity)
+    @Html.DisplayFor(model => model.Carpool.ArrivalCity)
+</div>
