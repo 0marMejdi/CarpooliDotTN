@@ -46,6 +46,34 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Azizz/Desktop/Studying/.NET/CarpooliDotTN/Views/Carpool/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FycG9vbFxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Azizz/Desktop/Studying/.NET/CarpooliDotTN/Views/Carpool/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FycG9vbFxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Azizz/Desktop/Studying/.NET/CarpooliDotTN/Views/Carpool/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FycG9vbFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Azizz/Desktop/Studying/.NET/CarpooliDotTN/Views/Carpool/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FycG9vbFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Azizz/Desktop/Studying/.NET/CarpooliDotTN/Views/Carpool/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FycG9vbFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Azizz/Desktop/Studying/.NET/CarpooliDotTN/Views/Carpool/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FycG9vbFxMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Azizz/Desktop/Studying/.NET/CarpooliDotTN/Views/Carpool/MyCarpools.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FycG9vbFxNeUNhcnBvb2xzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Azizz/Desktop/Studying/.NET/CarpooliDotTN/Views/Demand/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVtYW5kXExpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

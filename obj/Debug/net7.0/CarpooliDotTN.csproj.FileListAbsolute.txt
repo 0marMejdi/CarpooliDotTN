@@ -871,3 +871,4 @@ C:\Users\Omar\Desktop\DotNet\WorkSpace\CarpooliDotTN\bin\Debug\net7.0\Microsoft.
 C:\Users\Omar\Desktop\DotNet\WorkSpace\CarpooliDotTN\obj\Debug\net7.0\CarpooliDotTN.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Omar\Desktop\DotNet\WorkSpace\CarpooliDotTN\obj\Debug\net7.0\CarpooliDotTN.sourcelink.json
 C:\Users\Omar\Desktop\DotNet\WorkSpace\CarpooliDotTN\bin\Debug\net7.0\global.json
+C:\Users\Azizz\Desktop\Studying\.NET\CarpooliDotTN\bin\Debug\net7.0\global.json

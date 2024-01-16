@@ -1,0 +1,87 @@
+﻿@using System.Security.Claims
+@model IEnumerable<CarpooliDotTN.Models.Carpool>
+
+@{
+    ViewData["Title"] = "List";
+    string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="Add">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartureTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreationTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartureCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArrivalCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfPlaces)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsOpen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Owner)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartureTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartureCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArrivalCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfPlaces)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsOpen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Owner.Id)
+            </td>
+            <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    @if (UserId!=item.OwnerId)
+                    {
+                        <a asp-action="Apply" asp-controller="Demand" asp-route-id="@item.Id" >Apply</a>
+                    }
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

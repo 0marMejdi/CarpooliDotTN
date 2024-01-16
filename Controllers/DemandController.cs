@@ -12,7 +12,7 @@ public class DemandController : Controller
         _context = context; 
     }
     public IActionResult Index(){
-        return List();
+        return RedirectToAction("List");
     }
 
     [HttpGet("Demand/List")]
@@ -56,12 +56,14 @@ public class DemandController : Controller
     } 
     public IActionResult Apply (Guid carpoolId){
         Demand demand = new Demand();
+        demand.Id = Guid.NewGuid();
         demand.PassengerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ; 
         demand.CarpoolId = carpoolId;
         demand.status = Demand.Response.pending;
         demand.SubmissionTime = DateTime.Now;
         // TODO: check if the user already applied to this carpool
         _context.demands.Add(demand);
+        //a omar fama error mayhebesh yaamli savechanges lena 
         _context.SaveChanges();
         return List();
     }
