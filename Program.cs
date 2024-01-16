@@ -2,6 +2,8 @@ using CarpooliDotTN.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using CarpooliDotTN.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,7 @@ builder.Services.AddDefaultIdentity<User>(options =>
     options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<CarpooliDbContext>();
 builder.Services.AddRazorPages();
+builder.Services.AddTransient<CarpooliDotTN.Services.IEmailSender, EmailSender>(); ;
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
