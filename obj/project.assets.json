@@ -11946,26 +11946,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Azizz\\.nuget\\packages\\": {}
+    "C:\\Users\\Omar\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Azizz\\Desktop\\Studying\\.NET\\CarpooliDotTN\\CarpooliDotTN.csproj",
+      "projectUniqueName": "C:\\Users\\Omar\\Desktop\\DotNet\\WorkSpace\\CarpooliDotTN\\CarpooliDotTN.csproj",
       "projectName": "CarpooliDotTN",
-      "projectPath": "C:\\Users\\Azizz\\Desktop\\Studying\\.NET\\CarpooliDotTN\\CarpooliDotTN.csproj",
-      "packagesPath": "C:\\Users\\Azizz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Azizz\\Desktop\\Studying\\.NET\\CarpooliDotTN\\obj\\",
+      "projectPath": "C:\\Users\\Omar\\Desktop\\DotNet\\WorkSpace\\CarpooliDotTN\\CarpooliDotTN.csproj",
+      "packagesPath": "C:\\Users\\Omar\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Omar\\Desktop\\DotNet\\WorkSpace\\CarpooliDotTN\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Azizz\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Omar\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
