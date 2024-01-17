@@ -872,3 +872,9 @@ C:\Users\Omar\Desktop\DotNet\WorkSpace\CarpooliDotTN\obj\Debug\net7.0\CarpooliDo
 C:\Users\Omar\Desktop\DotNet\WorkSpace\CarpooliDotTN\obj\Debug\net7.0\CarpooliDotTN.sourcelink.json
 C:\Users\Omar\Desktop\DotNet\WorkSpace\CarpooliDotTN\bin\Debug\net7.0\global.json
 C:\Users\Azizz\Desktop\Studying\.NET\CarpooliDotTN\bin\Debug\net7.0\global.json
+C:\Users\ghass\source\repos\CarpooliDotTN\bin\Debug\net7.0\global.json
+C:\Users\ghass\source\repos\CarpooliDotTN\bin\Debug\net7.0\BouncyCastle.Cryptography.dll
+C:\Users\ghass\source\repos\CarpooliDotTN\bin\Debug\net7.0\MailKit.dll
+C:\Users\ghass\source\repos\CarpooliDotTN\bin\Debug\net7.0\MimeKit.dll
+C:\Users\ghass\source\repos\CarpooliDotTN\bin\Debug\net7.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\ghass\source\repos\CarpooliDotTN\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.Pkcs.dll
