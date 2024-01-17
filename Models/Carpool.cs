@@ -1,4 +1,6 @@
-﻿namespace CarpooliDotTN.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CarpooliDotTN.Models
 {
     public class Carpool
     {
@@ -12,6 +14,7 @@
         public int NumberOfPlaces { get; set; }
         public bool IsOpen { get; set; }
         public string Description { get; set; }
+        [InverseProperty("Carpool")]
         public virtual ICollection<Demand> Demands { get; set; }
         public virtual User Owner { get; set; }
     }

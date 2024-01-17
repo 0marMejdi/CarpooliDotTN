@@ -311,7 +311,7 @@ namespace CarpooliDotTN.Migrations
             modelBuilder.Entity("CarpooliDotTN.Models.Carpool", b =>
                 {
                     b.HasOne("CarpooliDotTN.Models.User", "Owner")
-                        .WithMany()
+                        .WithMany("Carpools")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -328,7 +328,7 @@ namespace CarpooliDotTN.Migrations
                         .IsRequired();
 
                     b.HasOne("CarpooliDotTN.Models.User", "Passenger")
-                        .WithMany()
+                        .WithMany("Demands")
                         .HasForeignKey("PassengerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -391,6 +391,13 @@ namespace CarpooliDotTN.Migrations
 
             modelBuilder.Entity("CarpooliDotTN.Models.Carpool", b =>
                 {
+                    b.Navigation("Demands");
+                });
+
+            modelBuilder.Entity("CarpooliDotTN.Models.User", b =>
+                {
+                    b.Navigation("Carpools");
+
                     b.Navigation("Demands");
                 });
 #pragma warning restore 612, 618

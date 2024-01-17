@@ -698,11 +698,11 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Identity.EntityFrameworkCore/7.0.14": {
+      "Microsoft.AspNetCore.Identity.EntityFrameworkCore/7.0.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "7.0.14",
-          "Microsoft.Extensions.Identity.Stores": "7.0.14"
+          "Microsoft.EntityFrameworkCore.Relational": "7.0.0",
+          "Microsoft.Extensions.Identity.Stores": "7.0.0"
         },
         "compile": {
           "lib/net7.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {
@@ -5129,10 +5129,10 @@
         "microsoft.aspnetcore.cryptography.keyderivation.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Identity.EntityFrameworkCore/7.0.14": {
-      "sha512": "K3O5+QhtjF7TI4JMux0JAnhoJu4APyJoyIx3qgXSKe0kXWEIpjORENVGhoywRlSehkPzJBdK9OlsQttk1FiPTQ==",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore/7.0.0": {
+      "sha512": "mtomuG24wGpvdblVQUj/JHIZ1i8oNhRNHr0V0re8fTkv15hz+AQLdtwbdd6FdINNeXiKi3kGmzZ7PE1KOyzoSg==",
       "type": "package",
-      "path": "microsoft.aspnetcore.identity.entityframeworkcore/7.0.14",
+      "path": "microsoft.aspnetcore.identity.entityframeworkcore/7.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5140,7 +5140,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net7.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll",
         "lib/net7.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.xml",
-        "microsoft.aspnetcore.identity.entityframeworkcore.7.0.14.nupkg.sha512",
+        "microsoft.aspnetcore.identity.entityframeworkcore.7.0.0.nupkg.sha512",
         "microsoft.aspnetcore.identity.entityframeworkcore.nuspec"
       ]
     },
@@ -12072,7 +12072,7 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "MailKit >= 4.3.0",
-      "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 7.0.14",
+      "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 7.0.0",
       "Microsoft.AspNetCore.Identity.UI >= 7.0.14",
       "Microsoft.EntityFrameworkCore >= 7.0.14",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.14",
@@ -12127,7 +12127,7 @@
           },
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
             "target": "Package",
-            "version": "[7.0.14, )"
+            "version": "[7.0.0, )"
           },
           "Microsoft.AspNetCore.Identity.UI": {
             "target": "Package",
@@ -12184,5 +12184,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\Azizz\\Desktop\\Studying\\.NET\\CarpooliDotTN\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

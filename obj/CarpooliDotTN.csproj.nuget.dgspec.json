@@ -46,7 +46,7 @@
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.14, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",

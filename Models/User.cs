@@ -1,8 +1,10 @@
 ﻿using CarpooliDotTN.Migrations;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarpooliDotTN.Models
 {
+   
     public class User : IdentityUser
     {
         public string? FirstName { get; set; }

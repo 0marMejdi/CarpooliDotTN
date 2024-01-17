@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CKpsgd7bxV+hD8h+vK1rKrsG/mQRjBa24xkoWWPZBadmWGuCMwbrTr57k+s5WwTb/FcnxRt5aV9pYPkU5voIdg==",
+  "dgSpecHash": "BkmOICDweSDpcX4SzQVTor1Mquh4UoDWds0SWN/HxwrsleL4i92DuC+HoFkf25KHCDpBGGUhaz2OppDJc/aULA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Azizz\\Desktop\\Studying\\.NET\\CarpooliDotTN\\CarpooliDotTN.csproj",
   "expectedPackageFiles": [
@@ -60,7 +60,7 @@
     "C:\\Users\\Azizz\\.nuget\\packages\\mailkit\\4.3.0\\mailkit.4.3.0.nupkg.sha512",
     "C:\\Users\\Azizz\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.14\\microsoft.aspnetcore.cryptography.internal.7.0.14.nupkg.sha512",
     "C:\\Users\\Azizz\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\7.0.14\\microsoft.aspnetcore.cryptography.keyderivation.7.0.14.nupkg.sha512",
-    "C:\\Users\\Azizz\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\7.0.14\\microsoft.aspnetcore.identity.entityframeworkcore.7.0.14.nupkg.sha512",
+    "C:\\Users\\Azizz\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\7.0.0\\microsoft.aspnetcore.identity.entityframeworkcore.7.0.0.nupkg.sha512",
     "C:\\Users\\Azizz\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\7.0.14\\microsoft.aspnetcore.identity.ui.7.0.14.nupkg.sha512",
     "C:\\Users\\Azizz\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.11\\microsoft.aspnetcore.razor.language.6.0.11.nupkg.sha512",
     "C:\\Users\\Azizz\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
@@ -245,5 +245,12 @@
     "C:\\Users\\Azizz\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Azizz\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\Azizz\\Desktop\\Studying\\.NET\\CarpooliDotTN\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
