@@ -13,7 +13,7 @@ namespace CarpooliDotTN.Services
         {
             // Sender's email credentials
             string senderEmail = "ghassencherif22@gmail.com";
-            string senderPassword = "";   //Add the email code for apps
+            string senderPassword = "dsocenefnjqnzcju";   //Add the email code for apps
 
             // Setup the MIME message
             var message = new MimeMessage();
