@@ -82,7 +82,7 @@ namespace CarpooliDotTN.Areas.Identity.Pages.Account
             {
                 Input = new InputModel
                 {
-                    Code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code))
+                    Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code))
                 };
                 return Page();
             }
