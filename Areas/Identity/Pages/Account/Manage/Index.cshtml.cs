@@ -38,6 +38,7 @@ namespace CarpooliDotTN.Areas.Identity.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
+        public string Username { get; set; }
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -58,8 +59,6 @@ namespace CarpooliDotTN.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
-            [Display(Name = "UserName")]
-            public string UserName { get; set; }
             public string FirstName { get; set; }
             public string LastName { get; set; }
             public string City { get; set; }
@@ -74,10 +73,10 @@ namespace CarpooliDotTN.Areas.Identity.Pages.Account.Manage
             var lastName = user.LastName;
             var city = user.City;
             var gender = user.Gender;
+            Username = userName;
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
-                UserName = userName,
                 FirstName = firstName,
                 LastName = lastName,
                 City = city,
@@ -112,7 +111,6 @@ namespace CarpooliDotTN.Areas.Identity.Pages.Account.Manage
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var username = await _userManager.GetUserNameAsync(user);
             var firstName = user.FirstName;
             var lastName = user.LastName;
             var city = user.City;
@@ -126,15 +124,7 @@ namespace CarpooliDotTN.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
-            if (Input.UserName != username)
-            {
-                var setUserNameResult = await _userManager.SetUserNameAsync(user,Input.UserName);
-                if (!setUserNameResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set user name.";
-                    return RedirectToPage();
-                }
-            }
+
             if (Input.LastName != lastName )
             {
                 user.LastName = Input.LastName;
