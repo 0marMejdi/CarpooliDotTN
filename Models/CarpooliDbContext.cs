@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,10 @@ public class CarpooliDbContext : IdentityDbContext<User>
     public CarpooliDbContext(DbContextOptions<CarpooliDbContext> options) :base(options){ }
         public DbSet<Carpool> carpools { get; set; }
         public DbSet<Demand> demands { get; set; }
+        
+        
+
+        
     /**
      * this function is made for those who run this app first time in their local repository
      * it's to check if there a database under name "CarpooliDotTn" or no
