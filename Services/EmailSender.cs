@@ -12,8 +12,8 @@ namespace CarpooliDotTN.Services
         public void SendEmail(string toEmail, string subject, string body)
         {
             // Sender's email credentials
-            string senderEmail = "carpoolidottn@gmail.com";
-            string senderPassword = "2x75lox6NBDpccg2aliC9SJR";   //Add the email code for apps
+            string senderEmail = "ghassencherif22@gmail.com";
+            string senderPassword = "dsocenefnjqnzcju";   //Add the email code for apps
 
             // Setup the MIME message
             var message = new MimeMessage();

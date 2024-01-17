@@ -10,8 +10,8 @@ public class CarpooliDbContext : IdentityDbContext<User>
     public CarpooliDbContext(DbContextOptions<CarpooliDbContext> options) :base(options){ }
         public DbSet<Carpool> carpools { get; set; }
         public DbSet<Demand> demands { get; set; }
-        
-        
+    
+ 
 
         
     /**

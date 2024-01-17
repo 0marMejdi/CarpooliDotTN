@@ -54,18 +54,25 @@ public class DemandController : Controller
         // not the owner
         return List();
     } 
-    public IActionResult Apply (Guid carpoolId){
+    public IActionResult Apply (Guid id){
         Demand demand = new Demand();
-        demand.Id = Guid.NewGuid();
-        demand.PassengerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ; 
-        demand.CarpoolId = carpoolId;
+        demand.PassengerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ;
+        //demand.Carpool = _context.carpools.Find(carpoolId);
+        demand.CarpoolId = id;
         demand.status = Demand.Response.pending;
         demand.SubmissionTime = DateTime.Now;
+        Console.WriteLine(demand.Id);
+        Console.WriteLine(demand.CarpoolId);
+        Console.WriteLine(demand.PassengerId);
+        Console.WriteLine(demand.SubmissionTime);
+        Console.WriteLine(demand.status);
+        
+        
         // TODO: check if the user already applied to this carpool
         _context.demands.Add(demand);
         //a omar fama error mayhebesh yaamli savechanges lena 
         _context.SaveChanges();
-        return List();
+        return RedirectToAction("List");
     }
 
     public IActionResult Details (Guid id){
