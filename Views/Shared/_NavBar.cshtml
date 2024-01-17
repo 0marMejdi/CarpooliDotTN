@@ -22,12 +22,18 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Carpool" asp-action="MyCarpools">My Carpools</a>
-                </li>                
-                
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Demand" asp-action="Received">Received Carpool Demands</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Demand" asp-action="Sent">Sent Carpool Demands</a>
+                </li>
+
             </ul>
         </div>
         <div>
             @Html.Partial("_LoginPartial")
-        </div>          
+        </div>
     </div>
 </nav>

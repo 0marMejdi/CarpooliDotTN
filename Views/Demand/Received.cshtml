@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CarpooliDotTN.Models.Demand>
+
+@{
+    ViewData["Title"] = "Received";
+}
+
+<h1>Received</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SubmissionTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Carpool)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Passenger)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubmissionTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Carpool.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Passenger.FirstName) @Html.DisplayFor(modelItem => item.Passenger.LastName)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.status)
+                </td>
+            <td>
+                    @if (item.status == Demand.Response.pending)
+                    {
+                        <a asp-action="Accept" asp-route-id="@item.Id">Accept</a> 
+                        <a asp-action = "Decline" asp-route-id = "@item.Id" > Decline </a>
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

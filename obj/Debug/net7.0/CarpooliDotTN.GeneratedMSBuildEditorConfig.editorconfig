@@ -130,12 +130,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVtYW5kXEFwcGx5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Azizz/Desktop/Studying/.NET/CarpooliDotTN/Views/Demand/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVtYW5kXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Azizz/Desktop/Studying/.NET/CarpooliDotTN/Views/Demand/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVtYW5kXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Azizz/Desktop/Studying/.NET/CarpooliDotTN/Views/Demand/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVtYW5kXExpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Azizz/Desktop/Studying/.NET/CarpooliDotTN/Views/Demand/Received.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVtYW5kXFJlY2VpdmVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Azizz/Desktop/Studying/.NET/CarpooliDotTN/Views/Demand/Sent.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVtYW5kXFNlbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Azizz/Desktop/Studying/.NET/CarpooliDotTN/Views/Home/Index.cshtml]

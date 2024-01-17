@@ -41,7 +41,7 @@ namespace CarpooliDotTN.Controllers
         /// <returns>View(carpools)</returns>
         public IActionResult List(string filterDepartureCity, string filterArrivalCity, decimal? filterPrice, int? filterNumberOfPlaces)
         {
-            IQueryable<Carpool> carpoolsQuery = _context.carpools;
+            IQueryable<Carpool> carpoolsQuery = _context.carpools.Include(x => x.Owner);
 
             if (!string.IsNullOrEmpty(filterDepartureCity))
             {

@@ -6,7 +6,7 @@
     string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 }
 
-<h1>List</h1>
+<h1>All Carpools</h1>
 
 <p>
     <a asp-action="Add">Create New</a>
@@ -102,7 +102,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Owner.Id)
+                    @Html.DisplayFor(modelItem => item.Owner.FirstName) @Html.DisplayFor(modelItem => item.Owner.LastName)
             </td>
             <td>
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a>
