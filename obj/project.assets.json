@@ -698,19 +698,19 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Identity.EntityFrameworkCore/7.0.0": {
+      "Microsoft.AspNetCore.Identity.EntityFrameworkCore/6.0.23": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "7.0.0",
-          "Microsoft.Extensions.Identity.Stores": "7.0.0"
+          "Microsoft.EntityFrameworkCore.Relational": "6.0.23",
+          "Microsoft.Extensions.Identity.Stores": "6.0.23"
         },
         "compile": {
-          "lib/net7.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {
+          "lib/net6.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net7.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {
+          "lib/net6.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {
             "related": ".xml"
           }
         }
@@ -5129,18 +5129,18 @@
         "microsoft.aspnetcore.cryptography.keyderivation.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Identity.EntityFrameworkCore/7.0.0": {
-      "sha512": "mtomuG24wGpvdblVQUj/JHIZ1i8oNhRNHr0V0re8fTkv15hz+AQLdtwbdd6FdINNeXiKi3kGmzZ7PE1KOyzoSg==",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore/6.0.23": {
+      "sha512": "yNEHYuOOdAiZzgopbmYLe3csZ9gstrKu++HzG/1lfujDL997QzSe30U3GTbK/fzI/GGo+XCEKy8KVzmu8DJIDw==",
       "type": "package",
-      "path": "microsoft.aspnetcore.identity.entityframeworkcore/7.0.0",
+      "path": "microsoft.aspnetcore.identity.entityframeworkcore/6.0.23",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "THIRD-PARTY-NOTICES.TXT",
-        "lib/net7.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll",
-        "lib/net7.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.xml",
-        "microsoft.aspnetcore.identity.entityframeworkcore.7.0.0.nupkg.sha512",
+        "lib/net6.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll",
+        "lib/net6.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.xml",
+        "microsoft.aspnetcore.identity.entityframeworkcore.6.0.23.nupkg.sha512",
         "microsoft.aspnetcore.identity.entityframeworkcore.nuspec"
       ]
     },
@@ -12072,7 +12072,7 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "MailKit >= 4.3.0",
-      "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 7.0.0",
+      "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.23",
       "Microsoft.AspNetCore.Identity.UI >= 7.0.14",
       "Microsoft.EntityFrameworkCore >= 7.0.14",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.14",
@@ -12083,19 +12083,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Azizz\\.nuget\\packages\\": {}
+    "C:\\Users\\ghass\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Azizz\\Desktop\\Studying\\.NET\\CarpooliDotTN\\CarpooliDotTN.csproj",
+      "projectUniqueName": "C:\\Users\\ghass\\source\\repos\\CarpooliDotTN\\CarpooliDotTN.csproj",
       "projectName": "CarpooliDotTN",
-      "projectPath": "C:\\Users\\Azizz\\Desktop\\Studying\\.NET\\CarpooliDotTN\\CarpooliDotTN.csproj",
-      "packagesPath": "C:\\Users\\Azizz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Azizz\\Desktop\\Studying\\.NET\\CarpooliDotTN\\obj\\",
+      "projectPath": "C:\\Users\\ghass\\source\\repos\\CarpooliDotTN\\CarpooliDotTN.csproj",
+      "packagesPath": "C:\\Users\\ghass\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ghass\\source\\repos\\CarpooliDotTN\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Azizz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ghass\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12127,7 +12127,7 @@
           },
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
             "target": "Package",
-            "version": "[7.0.0, )"
+            "version": "[6.0.23, )"
           },
           "Microsoft.AspNetCore.Identity.UI": {
             "target": "Package",
@@ -12181,16 +12181,8 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\Azizz\\Desktop\\Studying\\.NET\\CarpooliDotTN\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Azizz\\Desktop\\Studying\\.NET\\CarpooliDotTN\\CarpooliDotTN.csproj": {}
+    "C:\\Users\\ghass\\source\\repos\\CarpooliDotTN\\CarpooliDotTN.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Azizz\\Desktop\\Studying\\.NET\\CarpooliDotTN\\CarpooliDotTN.csproj": {
+    "C:\\Users\\ghass\\source\\repos\\CarpooliDotTN\\CarpooliDotTN.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Azizz\\Desktop\\Studying\\.NET\\CarpooliDotTN\\CarpooliDotTN.csproj",
+        "projectUniqueName": "C:\\Users\\ghass\\source\\repos\\CarpooliDotTN\\CarpooliDotTN.csproj",
         "projectName": "CarpooliDotTN",
-        "projectPath": "C:\\Users\\Azizz\\Desktop\\Studying\\.NET\\CarpooliDotTN\\CarpooliDotTN.csproj",
-        "packagesPath": "C:\\Users\\Azizz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Azizz\\Desktop\\Studying\\.NET\\CarpooliDotTN\\obj\\",
+        "projectPath": "C:\\Users\\ghass\\source\\repos\\CarpooliDotTN\\CarpooliDotTN.csproj",
+        "packagesPath": "C:\\Users\\ghass\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ghass\\source\\repos\\CarpooliDotTN\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Azizz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ghass\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -46,7 +46,7 @@
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[6.0.23, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
@@ -100,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
