@@ -1,0 +1,37 @@
+﻿
+@if(!FlashMessage.IsEmpty)
+{
+    <style>
+        #flash-alert{
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            transition: opacity 1s ease-in-out;
+        }
+        .fade{
+            opacity: 0;
+        }
+        
+    </style>
+    <div id="flash-alert" class="alert @FlashMessage.GetColor()">
+        @FlashMessage.GetMessage()
+    </div>
+    <script >
+    document.addEventListener("DOMContentLoaded", function () {
+    let flashAlert = document.getElementById("flash-alert");
+    setTimeout(function(){
+         if (flashAlert !== null){
+             console.log(flashAlert);
+         //    flashAlert.style.opacity="0";
+         flashAlert.classList.add("fade")
+         flashAlert.style.opacity="0";
+         flashAlert.style.cssText=" opacity: 0 ; ";
+         }
+    },1000)
+    
+    });
+</script>
+}
+

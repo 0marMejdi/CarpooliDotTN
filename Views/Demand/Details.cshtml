@@ -1,13 +1,15 @@
 ﻿@model CarpooliDotTN.Models.Demand
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewBag.Title = "Details";
 }
-
 <h2>Demand Detail</h2>
-
+@if (ViewBag.IsEditable)
+{
+    <h4> This Demand is Editable, so Add necessary buttons !</h4>
+}
 <div class="container card">
+    
     @Html.DisplayFor(model => model.SubmissionTime)
     @Html.DisplayFor(model => model.Carpool.DepartureCity)
     @Html.DisplayFor(model => model.Carpool.ArrivalCity)
