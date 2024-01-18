@@ -83,7 +83,7 @@ public class DemandController : Controller
             FlashMessage.SendError("Can't join this Carpool. This one has closed it's application");
             return RedirectToAction("List", "Carpool");
         }
-        if (_context.demands.FirstOrDefault(d => d.PassengerId == demand.PassengerId && d.CarpoolId == demand.CarpoolId) == null)
+        if (_context.demands.FirstOrDefault(d => d.PassengerId == demand.PassengerId && d.CarpoolId == demand.CarpoolId) != null)
         {
             FlashMessage.SendError("You have already applied for this carpool");
             return RedirectToAction("List","Carpool");

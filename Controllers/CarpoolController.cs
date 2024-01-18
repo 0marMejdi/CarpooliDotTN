@@ -193,13 +193,20 @@ namespace CarpooliDotTN.Controllers
         /// <returns>RedirectToAction("Index") if the user is the owner, no action if not.</returns>
         public IActionResult Delete(Guid id)
         {
-            string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value??"";
             var carpool = _context.carpools.Find(id);
-            if (UserId == carpool.OwnerId)
-            {
-                _context.carpools.Remove(carpool);
-                _context.SaveChanges();
+            if (carpool == null) {
+                FlashMessage.SendError("Specified Carpool not found. Maybe Deleted by owner");
+                return RedirectToAction("List");
             }
+           
+            if (UserId != carpool.OwnerId)
+            {
+               FlashMessage.SendError("You are not the owner of this carpool");
+                return RedirectToAction("List");
+            }
+             _context.carpools.Remove(carpool);
+             _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
