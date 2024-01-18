@@ -25,7 +25,7 @@ public class DemandController : Controller
         }
         var carpool = _context.carpools
             .Include(c => c.Demands)
-            .FirstOrDefault(c => c.Id == id);
+            .FirstOrDefault(c => c.Id == id );
         if (carpool == null)
         {
             FlashMessage.SendError("Carpool is not found. Could have been deleted by owner");
@@ -37,7 +37,14 @@ public class DemandController : Controller
             FlashMessage.SendError("You Are not the owner of this carpool to see its demands!");
             return RedirectToAction("List");
         }
-        return View(carpool.Demands);
+        
+        return View(_context.demands
+            .Include(d=>d.Carpool)
+            .Include(d=>d.Carpool.Owner)
+            .Include(d=>d.Passenger)
+            .Where(d=>d.CarpoolId==id)
+            .ToList()
+        );
     }
     [HttpGet("Demand/List")]
     /**
@@ -53,7 +60,8 @@ public class DemandController : Controller
         }
         var demands = _context.demands
             .Include(d => d.Carpool)
-            .Include(d=>d.Passenger)
+            //.Include(d=>d.Passenger)
+            .Include(d=>d.Carpool.Owner)
             .Where(d => d.PassengerId == userId)
             .ToList()??new List<Demand>();
         return View(demands);

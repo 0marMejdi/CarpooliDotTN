@@ -9,7 +9,7 @@
 <h1>All Carpools</h1>
 
 <p>
-    <a asp-action="Add">Create New</a>
+    <a asp-action="Add" class="btn btn-primary">Create New</a>
 </p>
 @using (Html.BeginForm("List", "Carpool", FormMethod.Get))
 {
@@ -104,11 +104,11 @@
             <td>
                     @Html.DisplayFor(modelItem => item.Owner.FirstName) @Html.DisplayFor(modelItem => item.Owner.LastName)
             </td>
-            <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+            <td class="d-flex justify-content-between">
+                    <a asp-action="Details" class="btn btn-info cols-5" asp-route-id="@item.Id">Details</a>
                     @if (UserId!=item.OwnerId)
                     {
-                        <a asp-action="Apply" asp-controller="Demand" asp-route-id="@item.Id" >Apply</a>
+                        <a asp-action="Apply" class="btn btn-warning cols-5" asp-controller="Demand" asp-route-id="@item.Id" >Apply</a>
                     }
                 </td>
         </tr>
