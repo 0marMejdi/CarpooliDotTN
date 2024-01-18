@@ -4,6 +4,7 @@ using CarpooliDotTN.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarpooliDotTN.Migrations
 {
     [DbContext(typeof(CarpooliDbContext))]
-    partial class CarpooliDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240118194401_Update User model and change the profile page")]
+    partial class UpdateUsermodelandchangetheprofilepage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

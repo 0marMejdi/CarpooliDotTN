@@ -58,10 +58,15 @@ namespace CarpooliDotTN.Areas.Identity.Pages.Account.Manage
             /// </summary>
             [Phone]
             [Display(Name = "Phone number")]
+            [Required]
             public string PhoneNumber { get; set; }
+            [Required]
             public string FirstName { get; set; }
+            [Required]
             public string LastName { get; set; }
+            [Required]
             public string City { get; set; }
+            [Required]
             public string Gender { get; set; }
         }
 
