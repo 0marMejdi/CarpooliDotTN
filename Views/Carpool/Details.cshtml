@@ -4,10 +4,7 @@
     ViewData["Title"] = "Details";
     
 }
-@if (ViewBag.IsEditable??false)
-{
-    <h4> This Carpool is Editable for this owner, so Add necessary buttons in this section!</h4>
-}
+
 <h1>Details</h1>
 
 <div>
@@ -70,6 +67,79 @@
         </dd>
     </dl>
 </div>
+<hr/>
+<div class="d-flex flex-wrap">
+    @if (ViewBag.IsEditable??false)
+    {
+        <a class="btn btn-secondary btn-info m-2" id="received" href="@Url.Action("List","Demand",new{id=@Model.Id})"> Received Demands </a>
+        <div id="Boutton"></div>
+        <a class="btn btn-secondary btn-warning m-2" href="@Url.Action("Details","Carpool",new{id=@Model.Id})"> Edit infos</a>
+        <a class="btn btn-primary btn-danger m-2" > Delete !</a>
+        
+    }
+    
+</div>
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+<script>
+    @{
+        string disabled = (Model.NumberOfPlaces == 0) ?"disabled":"";
+    }
+    function createOpenButton(){
+        let divElement = document.createElement('div');
+        divElement.classList.add('btn', 'btn-secondary', 'btn-success', 'm-2');
+        divElement.id = 'openOfferBtn';
+        divElement.textContent = 'Re-Open Offer';
+        return divElement;
+    }
+    function createCloseButton(){
+        let divElement = document.createElement('div');
+        divElement.classList.add('btn', 'btn-secondary', 'btn-danger', 'm-2');
+        divElement.id = 'closeOfferBtn';
+        divElement.textContent = 'Close Offer';
+        return divElement;
+    }
+    let openBtn = createOpenButton();
+    let closeBtn = createCloseButton();
+    const carpoolId = "@Model.Id"; 
+    if(@Model.IsOpen.ToString().ToLower())
+        document.getElementById('Boutton').replaceWith(closeBtn);
+    else
+        document.getElementById('Boutton').replaceWith(openBtn);   
+    closeBtn.addEventListener('click', async function() {
+        console.log("entered event listener for close button to open it ");
+        const apiUrl = `/api/Carpool/CloseOffer/${carpoolId}`;
+        try {
+            const response = await fetch(apiUrl, { method: 'POST' });
+            const data = await response.json();
+
+            if (!data.IsOpen) {
+               closeBtn.replaceWith(openBtn);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while closing the carpool offer.');
+        }
+    });
+    
+    openBtn.addEventListener('click', async function() {
+        console.log("entered event listener for open button to close it "); 
+        const apiUrl = `/api/Carpool/reopenOffer/${carpoolId}`;
+         try {
+             const response = await fetch(apiUrl, { method: 'POST' });
+             const data = await response.json();
+             console.log(data);
+             console.log(data.isOpen);
+             if (data.isOpen){
+                 openBtn.replaceWith(closeBtn);
+             }
+         } catch (error) {
+             console.error('Error:', error);
+             alert('An error occurred while closing the carpool offer.');
+        }
+    });
+</script>

@@ -14,7 +14,54 @@ namespace CarpooliDotTN.Controllers
         {
             _context = context;
         }
-
+        
+        
+        
+        [HttpPost]
+        [Route("api/carpool/closeoffer/{id}")]
+        public async Task<IActionResult> CloseOffer(Guid id)
+        {
+            Console.WriteLine("Entered API CLOSE");
+            var carpool = await _context.carpools
+                .FirstOrDefaultAsync(c => c.Id == id);
+            
+            if (carpool == null)
+            {
+                return NotFound();
+            }
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value??"";
+            if (userId != carpool.OwnerId)
+            {
+                return Forbid();
+            }
+            carpool.IsOpen = false; 
+            _context.Update(carpool);
+            await _context.SaveChangesAsync();
+            return Ok(new { IsOpen = false });
+        }
+         
+        [HttpPost]
+        [Route("api/carpool/reopenoffer/{id}")]
+        public async Task<IActionResult> ReOpenOffer(Guid id)
+        {
+            Console.WriteLine("Entered API Open");
+            var carpool = await _context.carpools
+                .FirstOrDefaultAsync(c => c.Id == id);
+            
+            if (carpool == null)
+            {
+                return NotFound();
+            }
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value??"";
+            if (userId != carpool.OwnerId || carpool.NumberOfPlaces<=0)
+            {
+                return Forbid();
+            }
+            carpool.IsOpen = true; // Set the IsClosed property to true (or your appropriate property)
+            _context.Update(carpool);
+            await _context.SaveChangesAsync();
+            return Ok(new { IsOpen = true });
+        }
         /// <summary>
         /// Redirects to the List action.
         /// </summary>
@@ -166,5 +213,6 @@ namespace CarpooliDotTN.Controllers
             ICollection<Carpool> carpools = _context.carpools.Where(x => x.OwnerId == userId).ToList();
             return View(carpools);
         }
+        
     }
 }
