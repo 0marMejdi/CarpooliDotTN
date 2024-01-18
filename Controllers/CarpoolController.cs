@@ -194,7 +194,7 @@ namespace CarpooliDotTN.Controllers
         public IActionResult Delete(Guid id)
         {
             string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            Carpool carpool = _context.carpools.Find(id);
+            var carpool = _context.carpools.Find(id);
             if (UserId == carpool.OwnerId)
             {
                 _context.carpools.Remove(carpool);
