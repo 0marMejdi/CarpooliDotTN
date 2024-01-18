@@ -51,29 +51,43 @@ public class DemandController : Controller
             FlashMessage.SendError("Error while getting your account infromations");
             RedirectToAction("Index", "Home");
         }
-        ICollection<Demand> demands = _context.demands
+        var demands = _context.demands
             .Include(d => d.Carpool)
             .Include(d=>d.Passenger)
             .Where(d => d.PassengerId == userId)
-            .ToList();
+            .ToList()??new List<Demand>();
         return View(demands);
     }
     public IActionResult Apply(Guid id) {
         Demand? demand = new Demand();
         demand.PassengerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        
         demand.CarpoolId = id;
         demand.status = Demand.Response.pending;
         demand.SubmissionTime = DateTime.Now;
-        // TODO: check if the user already applied to this carpool
         
+        if (_context.carpools.FirstOrDefault(c => c.Id == id) == null)
+        {
+            FlashMessage.SendError("The Carpool You are trying to apply doesn't exist. Probably Deleted by owner");
+            return RedirectToAction("List","Carpool");
+        }
+        if (!_context.carpools.FirstOrDefault(c => c.Id == id)!.IsOpen)
+        {
+            FlashMessage.SendError("Can't join this Carpool. This one has closed it's application");
+            return RedirectToAction("List", "Carpool");
+        }
         if (_context.demands.FirstOrDefault(d => d.PassengerId == demand.PassengerId && d.CarpoolId == demand.CarpoolId) == null)
         {
             FlashMessage.SendError("You have already applied for this carpool");
-            return RedirectToAction("List");
+            return RedirectToAction("List","Carpool");
+        }
+        if (_context.carpools.FirstOrDefault(c => c.Id == id)!.OwnerId == demand.PassengerId)
+        {
+            FlashMessage.SendError("You can't apply to your own carpool!");
+            return RedirectToAction("List", "Carpool");
         }
         _context.demands.Add(demand);
         _context.SaveChanges();
+        FlashMessage.SendSuccess("You have applied for the carpool");
         return RedirectToAction("List");
     }
     public IActionResult Details(Guid id)
@@ -94,7 +108,7 @@ public class DemandController : Controller
             FlashMessage.SendError("You are not Allowed to see this demand! Must be Sender or Receiver.");
             return RedirectToAction("List");
         }
-        ViewBag.Editable = userId == demand.PassengerId; 
+        ViewBag.IsEditable = (userId == demand.PassengerId); 
         return View(demand);
     }
     
@@ -122,31 +136,62 @@ public class DemandController : Controller
     }
     public IActionResult Accept(Guid id)
     {
-        Demand demand = _context.demands.Include(c => c.Carpool).Where(c => c.Id == id).First();
+        var demand = _context.demands
+            .Include(c => c.Carpool)
+            .FirstOrDefault(c => c.Id == id);
         string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
-        if (demand != null && 
-            UserId == demand.Carpool.OwnerId &&
-            demand.Carpool.NumberOfPlaces > 0)
+        if (demand == null)
         {
-            demand.status = Demand.Response.accepted;
-            demand.Carpool.NumberOfPlaces --;
-            _context.SaveChanges();
+            FlashMessage.SendError("Demand is not found! Probably deleted by owner");
+            return RedirectToAction("Received");
         }
+
+        if (UserId != demand.Carpool.OwnerId)
+        {
+            FlashMessage.SendError("You can't respond to this demand. It is not sent to you");
+            return RedirectToAction("Received");
+        }
+
+        if (demand.Carpool.NumberOfPlaces <= 0 )
+        {
+            FlashMessage.SendError("There is no enough places to accept more demands");
+            return RedirectToAction("Received");
+        }
+        demand.status = Demand.Response.accepted;
+        demand.Carpool.NumberOfPlaces --;
+        
+        // TODO: needs to be discussed: if the places are full does this mean that the offer needs to be closed?
+        if (demand.Carpool.NumberOfPlaces == 0)
+        {
+            demand.Carpool.IsOpen = false;
+            FlashMessage.SendInfo("Places are full now. The Offer is closed ");
+        }
+        _context.SaveChanges();
         return RedirectToAction("Received");
     }
     public IActionResult Decline(Guid id)
     {
-        Demand demand = _context.demands.Find(id);
+        var demand = _context.demands
+            .Include(c => c.Carpool)
+            .FirstOrDefault(c => c.Id == id);
         string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
-        if (demand != null && UserId == demand.Carpool.OwnerId)
+        if (demand == null)
         {
-            demand.status = Demand.Response.refused;
-            _context.SaveChanges(); 
+            FlashMessage.SendError("Demand is not found! Probably deleted by owner");
+            return RedirectToAction("Received");
         }
+        if (UserId != demand.Carpool.OwnerId)
+        {
+            FlashMessage.SendError("You can't respond to this demand. It is not sent to you");
+            return RedirectToAction("Received");
+        }
+        demand.status = Demand.Response.refused;
+        _context.SaveChanges(); 
         return RedirectToAction("Received");
     }
     public IActionResult Sent()
     {
+        return List();
         string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
         ICollection<Demand> Applications = _context.demands.Include(d => d.Passenger).Include(d => d.Carpool).Where(x => x.PassengerId == UserId).ToList();
         return View(Applications);

@@ -4,9 +4,13 @@
     ViewBag.Title = "Details";
 }
 <h2>Demand Detail</h2>
-@if (ViewBag.IsEditable)
+@if (ViewBag.IsEditable??false)
 {
     <h4> This Demand is Editable, so Add necessary buttons !</h4>
+}
+else
+{
+    <h4> you cant touch this</h4>
 }
 <div class="container card">
     

@@ -31,7 +31,14 @@ namespace CarpooliDotTN.Controllers
         /// <returns>View(carpool)</returns>
         public IActionResult Details(Guid id)
         {
-            Carpool carpool = _context.carpools.Include(x => x.Owner).Where(x => x.Id == id).FirstOrDefault();
+            var carpool = _context.carpools.Include(x => x.Owner).Where(x => x.Id == id).FirstOrDefault();
+            if (carpool == null)
+            {
+                FlashMessage.SendError("Carpool Not Found! Probably deleted by owner.");
+                return RedirectToAction("List");
+            }
+
+            ViewBag.isEditable = carpool.OwnerId == User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             return View(carpool);
         }
 
@@ -92,7 +99,18 @@ namespace CarpooliDotTN.Controllers
         [HttpPost]
         public IActionResult Add(Carpool carpool)
         {
-            carpool.Id = Guid.NewGuid();
+            // cheking carpool price is not negative,
+            // not empty city names,
+            // and departure time needs to be 10 minutes from now at least
+            if (carpool.Price < 0 ||
+                carpool.DepartureCity == null ||
+                carpool.ArrivalCity == null ||
+                (DateTime.Now - carpool.DepartureTime).TotalMinutes<10
+               )
+            {
+                FlashMessage.SendError("Can't Add Carpool! Invalid input.");
+                return Add();
+            }
             carpool.CreationTime = DateTime.Now;
             carpool.NumberOfPlaces = 4;
             carpool.IsOpen = true;

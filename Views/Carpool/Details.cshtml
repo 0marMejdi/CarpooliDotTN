@@ -4,7 +4,10 @@
     ViewData["Title"] = "Details";
     
 }
-
+@if (ViewBag.IsEditable??false)
+{
+    <h4> This Carpool is Editable for this owner, so Add necessary buttons in this section!</h4>
+}
 <h1>Details</h1>
 
 <div>
