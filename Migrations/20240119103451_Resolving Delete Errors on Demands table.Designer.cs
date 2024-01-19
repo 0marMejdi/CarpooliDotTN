@@ -4,6 +4,7 @@ using CarpooliDotTN.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarpooliDotTN.Migrations
 {
     [DbContext(typeof(CarpooliDbContext))]
-    partial class CarpooliDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240119103451_Resolving Delete Errors on Demands table")]
+    partial class ResolvingDeleteErrorsonDemandstable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,7 +66,7 @@ namespace CarpooliDotTN.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("carpools", (string)null);
+                    b.ToTable("carpools");
                 });
 
             modelBuilder.Entity("CarpooliDotTN.Models.Demand", b =>
@@ -91,7 +94,7 @@ namespace CarpooliDotTN.Migrations
 
                     b.HasIndex("PassengerId");
 
-                    b.ToTable("demands", (string)null);
+                    b.ToTable("demands");
                 });
 
             modelBuilder.Entity("CarpooliDotTN.Models.User", b =>

@@ -152,7 +152,7 @@ namespace CarpooliDotTN.Controllers
             if (carpool.Price < 0 ||
                 carpool.DepartureCity == null ||
                 carpool.ArrivalCity == null ||
-                (DateTime.Now - carpool.DepartureTime).TotalMinutes<10
+                (carpool.DepartureTime - DateTime.Now).TotalMinutes<10
                )
             {
                 FlashMessage.SendError("Can't Add Carpool! Invalid input.");

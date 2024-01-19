@@ -8,9 +8,20 @@ namespace CarpooliDotTN.Models;
 public class CarpooliDbContext : IdentityDbContext<User>
 {
     public CarpooliDbContext(DbContextOptions<CarpooliDbContext> options) :base(options){ }
-        public DbSet<Carpool> carpools { get; set; }
-        public DbSet<Demand?> demands { get; set; }
+    public DbSet<Carpool> carpools { get; set; }
+    public DbSet<Demand?> demands { get; set; }
     
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // remember to invoke the base ! always! 
+        base.OnModelCreating(modelBuilder);
+    
+        modelBuilder.Entity<Demand>()
+            .HasOne(d => d.Carpool)
+            .WithMany(c => c.Demands)
+            .HasForeignKey(d => d.CarpoolId)
+            .OnDelete(DeleteBehavior.Cascade);
+    }
  
 
         

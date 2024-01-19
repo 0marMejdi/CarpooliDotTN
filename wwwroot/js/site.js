@@ -12,7 +12,9 @@ function popFlash(message,color){
             flashAlert.classList.add("fade")
             flashAlert.style.opacity="0";
             flashAlert.style.cssText=" opacity: 0 ; ";
-            flashAlert.remove();
+            setTimeout(()=>{flashAlert.remove();},3000);
+            
+            
         }
     },2000);
 }

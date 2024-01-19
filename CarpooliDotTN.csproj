@@ -28,4 +28,8 @@
     <Compile Remove="Models\DataBaseInitializer.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="CarpooliDotTN.slnx" />
+  </ItemGroup>
+
 </Project>
