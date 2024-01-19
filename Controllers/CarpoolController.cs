@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarpooliDotTN.Controllers
 {
+    [Authorize]
     public class CarpoolController : Controller
     {
         private CarpooliDbContext _context { get; set; }
@@ -66,6 +68,7 @@ namespace CarpooliDotTN.Controllers
         /// Redirects to the List action.
         /// </summary>
         /// <returns>RedirectToAction("List")</returns>
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return RedirectToAction("List");
@@ -76,6 +79,7 @@ namespace CarpooliDotTN.Controllers
         /// </summary>
         /// <param name="id">The unique identifier of the carpool.</param>
         /// <returns>View(carpool)</returns>
+        [AllowAnonymous]
         public IActionResult Details(Guid id)
         {
             var carpool = _context.carpools.Include(x => x.Owner).Where(x => x.Id == id).FirstOrDefault();
@@ -93,6 +97,7 @@ namespace CarpooliDotTN.Controllers
         /// Displays a list of all carpools.
         /// </summary>
         /// <returns>View(carpools)</returns>
+        [AllowAnonymous]
         public IActionResult List(string filterDepartureCity, string filterArrivalCity, decimal? filterPrice, int? filterNumberOfPlaces)
         {
             IQueryable<Carpool> carpoolsQuery = _context.carpools.Include(x => x.Owner);
@@ -143,6 +148,7 @@ namespace CarpooliDotTN.Controllers
         /// </summary>
         /// <param name="carpool">The carpool model containing information about the carpool to be added.</param>
         /// <returns>RedirectToAction("List")</returns>
+        
         [HttpPost]
         public IActionResult Add(Carpool carpool)
         {
@@ -194,16 +200,18 @@ namespace CarpooliDotTN.Controllers
         public IActionResult Delete(Guid id)
         {
             string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value??"";
-            var carpool = _context.carpools.Find(id);
+            var carpool = _context.carpools.Include(c=>c.Demands).FirstOrDefault(c=>c.Id == id);
             if (carpool == null) {
                 FlashMessage.SendError("Specified Carpool not found. Maybe Deleted by owner");
                 return RedirectToAction("List");
             }
-           
             if (UserId != carpool.OwnerId)
             {
                FlashMessage.SendError("You are not the owner of this carpool");
                 return RedirectToAction("List");
+            }
+            foreach (var demand in carpool.Demands){
+                _context.demands.Remove(demand);
             }
              _context.carpools.Remove(carpool);
              _context.SaveChanges();
