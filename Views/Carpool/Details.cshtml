@@ -78,8 +78,10 @@
         
         <a class="btn btn-secondary btn-info m-2" id="received" href="@Url.Action("List","Demand",new{id=@Model.Id})"> Received Demands </a>
         <div id="Boutton">@*Placeholder for open and remove button*@</div>
+        
         <a class="btn btn-secondary btn-warning m-2" href="@Url.Action("Edit","Carpool",new{id=@Model.Id})"> Edit infos</a>
-        <a class="btn btn-primary btn-danger m-2" href="@Url.Action("Delete","Carpool", new {id=@Model.Id})"> Delete !</a>
+        <a class="btn btn-primary btn-danger m-2" href="@Url.Action("Delete","Carpool", new {id=@Model.Id})"> Delete ! </a>
+        <div id="loading-spinner"></div>
 <script>
     @{
         string disabled = (Model.NumberOfPlaces == 0) ?"disabled":"";
@@ -98,6 +100,16 @@
         divElement.textContent = 'Close Offer';
         return divElement;
     }
+    function addSpinner(){
+        let spinner = document.getElementById("loading-spinner");
+        spinner.classList.add("spinner-border");
+        spinner.setAttribute("role","status");
+    }
+    function removeSpinner(){
+        let spinner = document.getElementById("loading-spinner");
+        spinner.classList.remove("spinner-border");
+        spinner.attributes.removeNamedItem("role");
+    }
     let openBtn = createOpenButton();
     let closeBtn = createCloseButton();
     const carpoolId = "@Model.Id"; 
@@ -106,23 +118,27 @@
     else
         document.getElementById('Boutton').replaceWith(openBtn);   
     closeBtn.addEventListener('click', async function() {
-        console.log("entered event listener for close button to open it ");
+        addSpinner();
         const apiUrl = `/api/Carpool/CloseOffer/${carpoolId}`;
         try {
+            
             const response = await fetch(apiUrl, { method: 'POST' });
             const data = await response.json();
-
+            
             if (!data.IsOpen) {
                closeBtn.replaceWith(openBtn);
+               popFlashSuccess("Offer has been closed successfully");
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('An error occurred while closing the carpool offer.');
+            popFlashError('An error occurred while closing the carpool offer.');
+            
         }
+        removeSpinner();
     });
     
     openBtn.addEventListener('click', async function() {
-        console.log("entered event listener for open button to close it "); 
+        addSpinner(); 
         const apiUrl = `/api/Carpool/reopenOffer/${carpoolId}`;
          try {
              const response = await fetch(apiUrl, { method: 'POST' });
@@ -131,12 +147,16 @@
              console.log(data.isOpen);
              if (data.isOpen){
                  openBtn.replaceWith(closeBtn);
+                 popFlashSuccess("Offer has been re-opened successfully");
              }
          } catch (error) {
              console.error('Error:', error);
-             alert('An error occurred while closing the carpool offer.');
+             popFlashError("Can't re-open this carpool offer!");
+             
         }
+        removeSpinner();
     });
+    
 </script>
 
     }
