@@ -16,9 +16,9 @@ namespace CarpooliDotTN.Controllers
         {
             _context = context;
         }
-        
-        
-        
+
+
+
         [HttpPost]
         [Route("api/carpool/closeoffer/{id}")]
         public async Task<IActionResult> CloseOffer(Guid id)
@@ -26,22 +26,22 @@ namespace CarpooliDotTN.Controllers
             Console.WriteLine("Entered API CLOSE");
             var carpool = await _context.carpools
                 .FirstOrDefaultAsync(c => c.Id == id);
-            
+
             if (carpool == null)
             {
                 return NotFound();
             }
-            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value??"";
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
             if (userId != carpool.OwnerId)
             {
                 return Forbid();
             }
-            carpool.IsOpen = false; 
+            carpool.IsOpen = false;
             _context.Update(carpool);
             await _context.SaveChangesAsync();
             return Ok(new { IsOpen = false });
         }
-         
+
         [HttpPost]
         [Route("api/carpool/reopenoffer/{id}")]
         public async Task<IActionResult> ReOpenOffer(Guid id)
@@ -49,13 +49,13 @@ namespace CarpooliDotTN.Controllers
             Console.WriteLine("Entered API Open");
             var carpool = await _context.carpools
                 .FirstOrDefaultAsync(c => c.Id == id);
-            
+
             if (carpool == null)
             {
                 return NotFound();
             }
-            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value??"";
-            if (userId != carpool.OwnerId || carpool.NumberOfPlaces<=0)
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+            if (userId != carpool.OwnerId || carpool.NumberOfPlaces <= 0)
             {
                 return Forbid();
             }
@@ -114,7 +114,7 @@ namespace CarpooliDotTN.Controllers
 
             if (filterPrice.HasValue)
             {
-                carpoolsQuery = carpoolsQuery.Where(c => c.Price <= ((double)filterPrice.Value));
+                carpoolsQuery = carpoolsQuery.Where(c => c.Price <= (double)filterPrice.Value);
             }
 
             if (filterNumberOfPlaces.HasValue)
@@ -148,7 +148,7 @@ namespace CarpooliDotTN.Controllers
         /// </summary>
         /// <param name="carpool">The carpool model containing information about the carpool to be added.</param>
         /// <returns>RedirectToAction("List")</returns>
-        
+
         [HttpPost]
         public IActionResult Add(Carpool carpool)
         {
@@ -158,7 +158,7 @@ namespace CarpooliDotTN.Controllers
             if (carpool.Price < 0 ||
                 carpool.DepartureCity == null ||
                 carpool.ArrivalCity == null ||
-                (carpool.DepartureTime - DateTime.Now).TotalMinutes<10
+                (carpool.DepartureTime - DateTime.Now).TotalMinutes < 10
                )
             {
                 FlashMessage.SendError("Can't Add Carpool! Invalid input.");
@@ -184,12 +184,42 @@ namespace CarpooliDotTN.Controllers
             Carpool carpool = _context.carpools.Find(id);
             if (carpool.OwnerId == UserId)
             {
+
                 return View(carpool);
             }
             else
             {
                 return RedirectToAction("List");
             }
+        }
+        [HttpPost]
+        public IActionResult Edit(Guid id, Carpool editedCarpool)
+        {
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Carpool existingCarpool = _context.carpools.Find(id);
+
+            if (existingCarpool == null || existingCarpool.OwnerId != userId)
+            {
+                return NotFound(); // Carpool not found or unauthorized
+            }
+
+            // Check ModelState.IsValid to ensure the submitted form data is valid
+
+            // Update properties of the existing carpool with values from editedCarpool
+            existingCarpool.DepartureTime = editedCarpool.DepartureTime;
+            existingCarpool.DepartureCity = editedCarpool.DepartureCity;
+            existingCarpool.Price = editedCarpool.Price;
+            existingCarpool.NumberOfPlaces = editedCarpool.NumberOfPlaces;
+            existingCarpool.IsOpen = editedCarpool.IsOpen;
+            existingCarpool.Description = editedCarpool.Description;
+            // Update other properties as needed
+            _context.SaveChanges(); // Save changes to the database
+
+            return RedirectToAction("List"); // Redirect to the list view or another page
+
+
+            // If ModelState is not valid, return to the edit view with validation errors
+            return View(editedCarpool);
         }
 
         /// <summary>
@@ -199,22 +229,24 @@ namespace CarpooliDotTN.Controllers
         /// <returns>RedirectToAction("Index") if the user is the owner, no action if not.</returns>
         public IActionResult Delete(Guid id)
         {
-            string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value??"";
-            var carpool = _context.carpools.Include(c=>c.Demands).FirstOrDefault(c=>c.Id == id);
-            if (carpool == null) {
+            string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+            var carpool = _context.carpools.Include(c => c.Demands).FirstOrDefault(c => c.Id == id);
+            if (carpool == null)
+            {
                 FlashMessage.SendError("Specified Carpool not found. Maybe Deleted by owner");
                 return RedirectToAction("List");
             }
             if (UserId != carpool.OwnerId)
             {
-               FlashMessage.SendError("You are not the owner of this carpool");
+                FlashMessage.SendError("You are not the owner of this carpool");
                 return RedirectToAction("List");
             }
-            foreach (var demand in carpool.Demands){
+            foreach (var demand in carpool.Demands)
+            {
                 _context.demands.Remove(demand);
             }
-             _context.carpools.Remove(carpool);
-             _context.SaveChanges();
+            _context.carpools.Remove(carpool);
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -228,6 +260,6 @@ namespace CarpooliDotTN.Controllers
             ICollection<Carpool> carpools = _context.carpools.Where(x => x.OwnerId == userId).ToList();
             return View(carpools);
         }
-        
+
     }
 }
