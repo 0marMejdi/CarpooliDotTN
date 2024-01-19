@@ -108,6 +108,7 @@ public class DemandController : Controller
         var demand = _context.demands
             .Include(c => c.Carpool)
             .Include(c => c.Passenger)
+            .Include(c=>c.Carpool.Owner)
             .FirstOrDefault(d => d.Id==id);
          
         string ? userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

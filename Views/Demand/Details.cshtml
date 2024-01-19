@@ -6,15 +6,12 @@
 <h2>Demand Detail</h2>
 @if (ViewBag.IsEditable??false)
 {
-    <h4> This Demand is Editable, so Add necessary buttons !</h4>
+    <h4> You have Applied  at this carpool </h4>
+    @Html.Partial("_CarpoolCard",Model.Carpool)
+    
+    <a href="#" class="btn btn-dark"> Cancel Demand </a>
 }
 else
 {
     <h4> you cant touch this</h4>
 }
-<div class="container card">
-    
-    @Html.DisplayFor(model => model.SubmissionTime)
-    @Html.DisplayFor(model => model.Carpool.DepartureCity)
-    @Html.DisplayFor(model => model.Carpool.ArrivalCity)
-</div>

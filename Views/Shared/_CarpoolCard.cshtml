@@ -1,0 +1,15 @@
+﻿@model Carpool
+
+<div class="card m-2">
+    <div class="card-header">
+        Created by: <a href="#" >@Model.Owner.FirstName @Model.Owner.LastName</a> at @Model.CreationTime
+    </div>
+    <div class="card-body">
+        @Model.DepartureCity &rArr;	@Model.ArrivalCity ( @Model.Price DT )
+        <br/>
+        Leaving at @Model.DepartureTime
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-primary" href="@Url.Action("Details","Carpool",new {id=Model.Id})">See Carpool</a>
+    </div>
+</div>

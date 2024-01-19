@@ -71,16 +71,16 @@
 <div class="d-flex flex-wrap">
     @if ( ! ViewBag.IsEditable??false)
     {
-<a asp-action="Apply" class="btn btn-warning cols-5" asp-controller="Demand" asp-route-id="@Model.Id" >Apply</a>
+<a asp-action="Apply" class="btn btn-outline-warning cols-5" asp-controller="Demand" asp-route-id="@Model.Id" >Apply</a>
     }
     else
     {
         
-        <a class="btn btn-secondary btn-info m-2" id="received" href="@Url.Action("List","Demand",new{id=@Model.Id})"> Received Demands </a>
+        <a class="btn btn-outline-info m-2" id="received" href="@Url.Action("List","Demand",new{id=@Model.Id})"> Received Demands </a>
         <div id="Boutton">@*Placeholder for open and remove button*@</div>
         
-        <a class="btn btn-secondary btn-warning m-2" href="@Url.Action("Edit","Carpool",new{id=@Model.Id})"> Edit infos</a>
-        <a class="btn btn-primary btn-danger m-2" href="@Url.Action("Delete","Carpool", new {id=@Model.Id})"> Delete ! </a>
+        <a class="btn btn-outline-warning m-2" href="@Url.Action("Edit","Carpool",new{id=@Model.Id})"> Edit infos</a>
+        <a class="btn btn-danger m-2" href="@Url.Action("Delete","Carpool", new {id=@Model.Id})"> Delete ! </a>
         <div id="loading-spinner"></div>
 <script>
     @{
@@ -88,14 +88,14 @@
     }
     function createOpenButton(){
         let divElement = document.createElement('div');
-        divElement.classList.add('btn', 'btn-secondary', 'btn-success', 'm-2');
+        divElement.classList.add('btn', 'btn-outline-success', 'm-2');
         divElement.id = 'openOfferBtn';
         divElement.textContent = 'Re-Open Offer';
         return divElement;
     }
     function createCloseButton(){
         let divElement = document.createElement('div');
-        divElement.classList.add('btn', 'btn-secondary', 'btn-danger', 'm-2');
+        divElement.classList.add('btn', 'btn-outline-danger', 'm-2');
         divElement.id = 'closeOfferBtn';
         divElement.textContent = 'Close Offer';
         return divElement;
