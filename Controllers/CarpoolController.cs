@@ -102,7 +102,7 @@ namespace CarpooliDotTN.Controllers
         /// </summary>
         /// <returns>View(carpools)</returns>
         [AllowAnonymous]
-        public IActionResult List(string filterDepartureCity, string filterArrivalCity, decimal? filterPrice, int? filterNumberOfPlaces)
+        public IActionResult List(string filterDepartureCity, string filterArrivalCity,string ownerFilter, string availabiltyFilter, decimal? filterPrice, int? filterNumberOfPlaces)
         {
             IQueryable<Carpool> carpoolsQuery = _context.carpools.Include(x => x.Owner);
 
@@ -126,6 +126,27 @@ namespace CarpooliDotTN.Controllers
                 carpoolsQuery = carpoolsQuery.Where(c => c.NumberOfPlaces >= filterNumberOfPlaces.Value);
             }
 
+            if (!string.IsNullOrEmpty(ownerFilter))
+            {
+                if (ownerFilter == "me")
+                {
+                    carpoolsQuery = carpoolsQuery.Where(c => c.OwnerId == GetCurrentUser());
+                }else if (ownerFilter == "others")
+                {
+                    carpoolsQuery = carpoolsQuery.Where(c => c.OwnerId != GetCurrentUser());
+                }
+            }
+            if (!string.IsNullOrEmpty(availabiltyFilter))
+            {
+                if (availabiltyFilter == "open")
+                {
+                    carpoolsQuery = carpoolsQuery.Where(c => c.IsOpen);
+                }
+                else if (availabiltyFilter == "closed")
+                {
+                    carpoolsQuery = carpoolsQuery.Where(c => !c.IsOpen);
+                }
+            }
             ICollection<Carpool> carpools = carpoolsQuery.ToList();
 
             // Pass the filter values to the view for display or further filtering
@@ -133,11 +154,12 @@ namespace CarpooliDotTN.Controllers
             ViewData["FilterArrivalCity"] = filterArrivalCity;
             ViewData["FilterPrice"] = filterPrice;
             ViewData["FilterNumberOfPlaces"] = filterNumberOfPlaces;
-
+            ViewData["OwnerFilter"] = ownerFilter;
+            ViewData["AvailabiltyFilter"] = availabiltyFilter;
             string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             return View(carpools);
         }
-        public IActionResult ListAll(string filterDepartureCity, string filterArrivalCity, decimal? filterPrice, int? filterNumberOfPlaces)
+        public IActionResult ListAll(string filterDepartureCity, string filterArrivalCity,string ownerFilter, string availabiltyFilter, decimal? filterPrice, int? filterNumberOfPlaces)
         {
             IQueryable<Carpool> carpoolsQuery = _context.carpools.Include(x => x.Owner).Include(x => x.Demands);
 
@@ -160,7 +182,28 @@ namespace CarpooliDotTN.Controllers
             {
                 carpoolsQuery = carpoolsQuery.Where(c => c.NumberOfPlaces >= filterNumberOfPlaces.Value);
             }
-
+            
+            if (!string.IsNullOrEmpty(ownerFilter))
+            {
+                if (ownerFilter == "me")
+                {
+                    carpoolsQuery = carpoolsQuery.Where(c => c.OwnerId == GetCurrentUser());
+                }else if (ownerFilter == "others")
+                {
+                    carpoolsQuery = carpoolsQuery.Where(c => c.OwnerId != GetCurrentUser());
+                }
+            }
+            if (!string.IsNullOrEmpty(availabiltyFilter))
+            {
+                if (availabiltyFilter == "open")
+                {
+                    carpoolsQuery = carpoolsQuery.Where(c => c.IsOpen);
+                }
+                else if (availabiltyFilter == "closed")
+                {
+                    carpoolsQuery = carpoolsQuery.Where(c => !c.IsOpen);
+                }
+            }
             List<Carpool> carpools = carpoolsQuery.ToList();
 
             // Pass the filter values to the view for display or further filtering
@@ -168,7 +211,8 @@ namespace CarpooliDotTN.Controllers
             ViewData["FilterArrivalCity"] = filterArrivalCity;
             ViewData["FilterPrice"] = filterPrice;
             ViewData["FilterNumberOfPlaces"] = filterNumberOfPlaces;
-
+            ViewData["OwnerFilter"] = ownerFilter;
+            ViewData["AvailabiltyFilter"] = availabiltyFilter;
             string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             return View(CarpoolCard.GetCardsForAll(carpools,UserId));
         }

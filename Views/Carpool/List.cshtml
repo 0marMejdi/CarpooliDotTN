@@ -51,6 +51,28 @@
                     @Html.TextBox("filterNumberOfPlaces", ViewData["FilterNumberOfPlaces"] as string, new { @class = "form-control" })
                 </div>
             </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label" for="availabiltyFilter">Availability:</label>
+                    @Html.DropDownList("availabiltyFilter", new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "All", Value = "all" },
+                        new SelectListItem { Text = "Open", Value = "open" },
+                        new SelectListItem { Text = "Closed", Value = "closed" }
+                    },new { @class = "form-control", @value=ViewData["AvailabiltyFilter"] as String })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="ownerFilter" class="control-label">Owner:</label>
+                    @Html.DropDownList("ownerFilter", new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "All", Value = "all" },
+                        new SelectListItem { Text = "Me", Value = "me" },
+                        new SelectListItem { Text = "Others", Value = "others" }
+                    },new { @class = "form-control" , @value= ViewData["OwnerFilter"] as String})
+                </div>
+            </div>
         </div>
 
         <div class="row">

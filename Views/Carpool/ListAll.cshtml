@@ -18,7 +18,7 @@
 <p>
     <a asp-action="Add" class="btn btn-primary">Create New</a>
 </p>
-@using (Html.BeginForm("List", "Carpool", FormMethod.Get, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("ListAll", "Carpool", FormMethod.Get, new { @class = "form-horizontal" }))
 {
     <div class="container">
         <div class="row">
@@ -49,6 +49,28 @@
                 <div class="form-group">
                     <label class="control-label" for="filterNumberOfPlaces">Number of Places:</label>
                     @Html.TextBox("filterNumberOfPlaces", ViewData["FilterNumberOfPlaces"] as string, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label" for="availabiltyFilter">Availability:</label>
+                    @Html.DropDownList("availabiltyFilter", new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "All", Value = "all" },
+                        new SelectListItem { Text = "Open", Value = "open" },
+                        new SelectListItem { Text = "Closed", Value = "closed" }
+                    },new { @class = "form-control", @value=ViewData["AvailabiltyFilter"] as String })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="ownerFilter" class="control-label">Owner:</label>
+                    @Html.DropDownList("ownerFilter", new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "All", Value = "all" },
+                        new SelectListItem { Text = "Me", Value = "me" },
+                        new SelectListItem { Text = "Others", Value = "others" }
+                    },new { @class = "form-control" , @value= ViewData["OwnerFilter"] as String})
                 </div>
             </div>
         </div>
