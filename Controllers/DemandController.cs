@@ -2,11 +2,18 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using CarpooliDotTN.ViewModels;
+
 namespace CarpooliDotTN.Models;
 [Authorize]
 public class DemandController : Controller
 {
+    
     private CarpooliDbContext _context;
+
+    public string GetCurrentUser(){
+        return User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "" ;
+    }
     public DemandController(CarpooliDbContext context)
     {
         _context = context;
@@ -18,7 +25,8 @@ public class DemandController : Controller
             * this function is used to list all the demands of a specific carpool
             * it's used in the view of the owner of the carpool to see all the demands made to his carpool
             */
-    public IActionResult List(Guid id) {
+    public IActionResult ReceivedByCarpool(Guid id) {
+        Console.WriteLine("Entered List By ");
         if (id == new Guid()) {
             FlashMessage.SendError("Specified id is invalid");	
             return RedirectToAction("List");
@@ -31,28 +39,30 @@ public class DemandController : Controller
             FlashMessage.SendError("Carpool is not found. Could have been deleted by owner");
             return RedirectToAction("List");
         }
-        string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+        string userId = GetCurrentUser();
         if (userId != carpool.OwnerId)
         {
             FlashMessage.SendError("You Are not the owner of this carpool to see its demands!");
             return RedirectToAction("List");
         }
-        
-        return View(_context.demands
+
+        var demands = _context.demands
             .Include(d=>d.Carpool)
             .Include(d=>d.Carpool.Owner)
             .Include(d=>d.Passenger)
             .Where(d=>d.CarpoolId==id)
-            .ToList()
-        );
+            .ToList();
+        
+        return View("List",DemandCard.GetCardsForReceiverByCarpool(demands));
+        
     }
     [HttpGet("Demand/List")]
     /**
         * this function is used to list all the demands of the current user
         * it's used in the view of the user to see all the demands he made
         */
-    public IActionResult List() {
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    public IActionResult List() { //sent
+        var userId = GetCurrentUser();
         var user = _context.Users.Find(userId);
         if (user == null) {
             FlashMessage.SendError("Error while getting your account infromations");
@@ -64,11 +74,12 @@ public class DemandController : Controller
             .Include(d=>d.Carpool.Owner)
             .Where(d => d.PassengerId == userId)
             .ToList()??new List<Demand>();
-        return View(demands);
+        
+        return View(DemandCard.GetCardsForSender(demands));
     }
     public IActionResult Apply(Guid id) {
         Demand? demand = new Demand();
-        demand.PassengerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        demand.PassengerId = GetCurrentUser();
         demand.CarpoolId = id;
         demand.status = Demand.Response.pending;
         demand.SubmissionTime = DateTime.Now;
@@ -111,26 +122,35 @@ public class DemandController : Controller
             .Include(c=>c.Carpool.Owner)
             .FirstOrDefault(d => d.Id==id);
          
-        string ? userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        string ? userId = GetCurrentUser();
         if (userId != demand.PassengerId && userId != demand.Carpool.OwnerId)
         {
             FlashMessage.SendError("You are not Allowed to see this demand! Must be Sender or Receiver.");
             return RedirectToAction("List");
         }
         ViewBag.IsEditable = (userId == demand.PassengerId); 
+        bool receiver = userId == demand.Carpool.OwnerId ; 
+        ViewBag.CarpoolCard = new CarpoolCard(demand.Carpool){ByOwner = !receiver, Apply = !receiver && !isApplied(demand.PassengerId,demand.CarpoolId) , SeeApplication=false, SeeCarpool=true, DemandId = demand.Id} ; 
         return View(demand);
     }
     
     //TODO : List Action already working instead of this, so this needs to be deleted
     public IActionResult Received()
     {
-        string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
-        ICollection<Demand> Applications = _context.demands.Include(d => d.Passenger).Include(d => d.Carpool).Where(x => x.Carpool.OwnerId == UserId).ToList();
-        return View(Applications);
+        string UserId = GetCurrentUser();
+        List<Demand> Applications = _context.demands
+            .Include(d => d.Passenger)
+            .Include(d => d.Carpool)
+            .Include(d=>d.Carpool.Owner)
+            .Where(x => x.Carpool.OwnerId == UserId)
+            .ToList();
+        
+          return View("List",DemandCard.GetCardsForReceiver(Applications));
+        
     }
     public IActionResult Delete(Guid id)
     {
-        string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+        string UserId = GetCurrentUser();
         Demand demand = _context.demands.Find(id);
         if (UserId == demand.PassengerId)
         {
@@ -148,7 +168,7 @@ public class DemandController : Controller
         var demand = _context.demands
             .Include(c => c.Carpool)
             .FirstOrDefault(c => c.Id == id);
-        string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+        string UserId = GetCurrentUser();
         if (demand == null)
         {
             FlashMessage.SendError("Demand is not found! Probably deleted by owner");
@@ -183,7 +203,7 @@ public class DemandController : Controller
         var demand = _context.demands
             .Include(c => c.Carpool)
             .FirstOrDefault(c => c.Id == id);
-        string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+        string UserId = GetCurrentUser();
         if (demand == null)
         {
             FlashMessage.SendError("Demand is not found! Probably deleted by owner");
@@ -200,9 +220,19 @@ public class DemandController : Controller
     }
     public IActionResult Sent()
     {
-        return List();
-        string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+        return RedirectToAction("List");
+        string UserId = GetCurrentUser();
         ICollection<Demand> Applications = _context.demands.Include(d => d.Passenger).Include(d => d.Carpool).Where(x => x.PassengerId == UserId).ToList();
         return View(Applications);
+    }
+    [NonAction]
+    public bool isApplied(string userId,Guid carpoolId){
+        return _context.demands.Any(d=>d.PassengerId==userId && d.CarpoolId==carpoolId);
+    }
+    public Guid getApplication(string userId, Guid carpoolId){
+        if (!isApplied(userId,carpoolId)){
+                return new Guid();
+        }
+        return _context.demands.Where(d=>d.PassengerId==userId && d.CarpoolId==carpoolId).FirstOrDefault().Id;
     }
 }

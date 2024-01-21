@@ -1,4 +1,7 @@
-﻿@model CarpooliDotTN.Models.Demand
+﻿@using CarpooliDotTN.ViewModels
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@model CarpooliDotTN.Models.Demand
 
 @{
     ViewBag.Title = "Details";
@@ -7,9 +10,11 @@
 @if (ViewBag.IsEditable??false)
 {
     <h4> You have Applied  at this carpool </h4>
-    @Html.Partial("_CarpoolCard",Model.Carpool)
+    
+    @Html.Partial("_CarpoolCard",(CarpoolCard) ViewBag.CarpoolCard)
     
     <a href="#" class="btn btn-dark"> Cancel Demand </a>
+    
 }
 else
 {

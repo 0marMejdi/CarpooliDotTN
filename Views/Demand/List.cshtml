@@ -1,4 +1,5 @@
-@model ICollection<Demand>
+
+@model List<CarpooliDotTN.ViewModels.DemandCard>
 <div class="container">
     <div class="d-flex justify-content-between">
         <h1>Demands List</h1>
@@ -7,58 +8,7 @@
     <div class="card-list col-md-6 col-sm-12">
         @foreach (var item in Model)
         {
-            <div class="card mb-3" style="text-align:center;">
-                <a href="@Url.Action("Details","Demand",new{id=item.Id})">
-                    <div class="card-header d-flex justify-content-start">
-                        <p class="text-right text-decoration-none">
-                            Applied at : @item.SubmissionTime
-                        </p>
-                    </div>
-                </a>
-                <div class="card-body ">
-                    <div class="d-flex justify-content-around flex-wrap">
-                        <div>
-                             <div class="d-flex justify-content-start">
-                                Posted on : @item.Carpool.CreationTime by @item.Carpool.Owner.FirstName @item.Carpool.Owner.LastName
-                            </div>
-                            <div class="d-flex justify-content-start">
-                                @item.Carpool.DepartureCity &rArr; @item.Carpool.ArrivalCity
-                            </div>
-                        </div>
-                        <div>
-                            <a href="@Url.Action("Details", "Carpool", new { id = item.Carpool.Id })" class="btn btn-primary">See Carpool</a>
-                        </div>
-                    </div>
-                   
-                    
-
-
-                </div>
-                <div class="card-footer d-flex justify-content-start">
-                    @{
-                        string buttonText;
-                        string buttonColor;
-                    }
-                    @if (item.status == Demand.Response.accepted)
-                    {
-                        buttonText = "Accepted";
-                        buttonColor = "btn-success";
-                    }
-                    else if (item.status == Demand.Response.pending)
-                    {
-                        buttonText = "Pending";
-                        buttonColor = "btn-warning";
-                    }
-                    else
-                    {
-                        buttonText = "Refused";
-                        buttonColor = "btn-danger";
-                    }
-                    <div class="btn btn-secondary @buttonColor disabled">
-                        @buttonText
-                    </div>
-                </div>
-            </div>
+            @Html.Partial("_DemandCard", (CarpooliDotTN.ViewModels.DemandCard)item)
         }
     </div>
 

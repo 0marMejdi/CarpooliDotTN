@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using CarpooliDotTN.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
+CarpooliDbContext.InitializeDatabase();
 // Add services to the container.
 builder.Services.AddDbContext<CarpooliDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CarpooliDbContextConnection")));

@@ -3,7 +3,7 @@ using System.Security.Claims;
 using CarpooliDotTN.Migrations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using System.Security.Claims;
 namespace CarpooliDotTN.Models
 {
    
@@ -18,6 +18,6 @@ namespace CarpooliDotTN.Models
         public string PhoneNumber {  get; set; }
         public ICollection<Carpool> Carpools { get; set; }
         public ICollection<Demand> Demands { get; set; }
-
+    
     }
 }

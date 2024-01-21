@@ -1,15 +1,36 @@
-﻿@model Carpool
+﻿@model CarpooliDotTN.ViewModels.CarpoolCard
 
 <div class="card m-2">
     <div class="card-header">
-        Created by: <a href="#" >@Model.Owner.FirstName @Model.Owner.LastName</a> at @Model.CreationTime
+        Created 
+        @if(@Model.ByOwner) {<span> by: <a href="#" >@Model.Carpool.Owner.FirstName @Model.Carpool.Owner.LastName</a></span>}
+        at @Model.Carpool.CreationTime
     </div>
-    <div class="card-body">
-        @Model.DepartureCity &rArr;	@Model.ArrivalCity ( @Model.Price DT )
-        <br/>
-        Leaving at @Model.DepartureTime
+    <div class="card-body d-flex justify-content-between">
+        <div>
+            @Model.Carpool.DepartureCity &rArr;	@Model.Carpool.ArrivalCity ( @Model.Carpool.Price DT )
+            <br/>
+            Leaving at @Model.Carpool.DepartureTime
+        </div>
+        @if (Model.Availabilty){
+            <div>
+                @if (Model.Carpool.IsOpen)
+                    {
+                        <div class="btn btn-success disabled ">Open</div>
+                    }
+                    else
+                    {
+                        <div class="btn btn-danger disabled">Closed</div>
+                    }
+            </div>
+        }
+        
     </div>
-    <div class="card-footer">
-        <a class="btn btn-primary" href="@Url.Action("Details","Carpool",new {id=Model.Id})">See Carpool</a>
+    <div class="card-footer d-flex justify-content-between"> 
+   @if (Model.SeeCarpool){<a  class="btn btn-outline-info mx-1"  href="@Url.Action("Details","Carpool",new {id=Model.Carpool.Id})">More...</a>}
+   @if (Model.Apply){<a class="btn btn-warning mx-1" href="@Url.Action("Apply","Demand",new {id=Model.Carpool.Id})">Apply Carpool</a>}
+   @if (Model.SeeApplication){<a class="btn btn-warning mx-1" href="@Url.Action("Details","Demand",new {id=Model.DemandId})">See Application</a>}
+   
+        
     </div>
 </div>

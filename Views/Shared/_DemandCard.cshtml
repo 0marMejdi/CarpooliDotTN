@@ -1,0 +1,81 @@
+﻿@model CarpooliDotTN.ViewModels.DemandCard
+
+ <div class="card mb-3" style="text-align:center;">
+                @if(Model.Header){
+                    <div class="card-header d-flex justify-content-start">
+                        <p class="text-right text-decoration-none">
+                            Demand Sent at : @Model.Demand.SubmissionTime
+                            @if(Model.Sender){<span>by <a href="#">@Model.Demand.Passenger.FirstName @Model.Demand.Passenger.LastName</a></span>}
+                        </p>
+                    </div>
+                }
+                <div class="card-body">
+                    @if(Model.Carpool){
+                        <div class="d-flex justify-content-between flex-wrap">
+                            <div>
+                                <div class="d-flex justify-content-start">
+                                    Carpool Posted on : @Model.Demand.Carpool.CreationTime 
+                                    @if(Model.Creator) {<span>by</span> <a href="#">@Model.Demand.Carpool.Owner.FirstName @Model.Demand.Carpool.Owner.LastName </a> }
+                                     
+                                </div>
+                                <div class="d-flex justify-content-start">
+                                    @Model.Demand.Carpool.DepartureCity &rArr; @Model.Demand.Carpool.ArrivalCity
+                                </div>
+                            </div>
+                            <div>
+                                <a href="@Url.Action("Details", "Carpool", new { id = Model.Demand.Carpool.Id })" class="btn mx-1 btn-primary">See Carpool</a>
+                            </div>
+                        </div>
+                    }else if(!Model.Header){
+                        <div class="d-flex justify-content-between flex-wrap">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                Demand Sent at : @Model.Demand.SubmissionTime
+                                @if(Model.Sender){<span>by <a href="#">@Model.Demand.Passenger.FirstName @Model.Demand.Passenger.LastName</a></span>}
+                            </div>
+                        </div>
+                        </div>
+                    }     
+                </div>
+                <div class="card-footer d-flex ">
+                    @if (Model.State)
+                    {
+                
+                   
+                        string buttonText="";
+                        string buttonColor="";
+                    
+                        if (Model.Demand.status == Demand.Response.accepted)
+                        {
+                            buttonText = "Accepted";
+                            buttonColor = "btn-success";
+                        }
+                        if (Model.Demand.status == Demand.Response.pending)
+                        {
+                            buttonText = "Pending";
+                            buttonColor = "btn-warning";
+                        }
+                        if (Model.Demand.status == Demand.Response.refused)
+                        {
+                            buttonText = "Refused";
+                            buttonColor = "btn-danger";
+                        }
+                        <div class="btn mx-1 btn-secondary @buttonColor disabled">
+                            @buttonText
+                        </div>
+                    }
+                    @if (Model.Accept){
+                        <a href="@Url.Action("Accept", "Demand", new { id = Model.Demand.Id })" class="btn mx-1 btn-success">Accept</a>
+                    }
+                    @if (Model.Decline){
+                        <a href="@Url.Action("Decline", "Demand", new { id = Model.Demand.Id })" class="btn mx-1 btn-danger">Refuse</a>
+                    }
+                    @if (Model.Cancel){
+                        <a href="@Url.Action("Cancel", "Demand", new { id = Model.Demand.Id })" class="btn mx-1 btn-dark">Cancel</a>
+                    }
+                    <a style="right: 0; position: absolute;" class="btn mx-2 btn-outline-info" href="@Url.Action("Details","Demand",new {id=Model.Demand.Id})">More...</a>
+                </div>
+           </div>
+                
+                
+

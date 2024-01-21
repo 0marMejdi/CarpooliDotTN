@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using CarpooliDotTN.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CarpooliDotTN.Controllers
@@ -11,6 +12,9 @@ namespace CarpooliDotTN.Controllers
     public class CarpoolController : Controller
     {
         private CarpooliDbContext _context { get; set; }
+          public string GetCurrentUser(){
+                return User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "" ;
+            }
 
         public CarpoolController(CarpooliDbContext context)
         {
@@ -132,6 +136,41 @@ namespace CarpooliDotTN.Controllers
 
             string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             return View(carpools);
+        }
+        public IActionResult ListAll(string filterDepartureCity, string filterArrivalCity, decimal? filterPrice, int? filterNumberOfPlaces)
+        {
+            IQueryable<Carpool> carpoolsQuery = _context.carpools.Include(x => x.Owner).Include(x => x.Demands);
+
+            if (!string.IsNullOrEmpty(filterDepartureCity))
+            {
+                carpoolsQuery = carpoolsQuery.Where(c => c.DepartureCity == filterDepartureCity);
+            }
+
+            if (!string.IsNullOrEmpty(filterArrivalCity))
+            {
+                carpoolsQuery = carpoolsQuery.Where(c => c.ArrivalCity == filterArrivalCity);
+            }
+
+            if (filterPrice.HasValue)
+            {
+                carpoolsQuery = carpoolsQuery.Where(c => c.Price <= (double)filterPrice.Value);
+            }
+
+            if (filterNumberOfPlaces.HasValue)
+            {
+                carpoolsQuery = carpoolsQuery.Where(c => c.NumberOfPlaces >= filterNumberOfPlaces.Value);
+            }
+
+            List<Carpool> carpools = carpoolsQuery.ToList();
+
+            // Pass the filter values to the view for display or further filtering
+            ViewData["FilterDepartureCity"] = filterDepartureCity;
+            ViewData["FilterArrivalCity"] = filterArrivalCity;
+            ViewData["FilterPrice"] = filterPrice;
+            ViewData["FilterNumberOfPlaces"] = filterNumberOfPlaces;
+
+            string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            return View(CarpoolCard.GetCardsForAll(carpools,UserId));
         }
 
         /// <summary>
@@ -257,8 +296,13 @@ namespace CarpooliDotTN.Controllers
         public IActionResult MyCarpools()
         {
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            ICollection<Carpool> carpools = _context.carpools.Where(x => x.OwnerId == userId).ToList();
-            return View(carpools);
+            List<Carpool> carpools = _context.carpools
+                .Include(c=>c.Owner)
+                .Where(x => x.OwnerId == userId)
+                .ToList();
+            
+           
+            return View(CarpoolCard.GetCardsForOwner(carpools));
         }
 
     }
