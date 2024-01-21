@@ -180,7 +180,10 @@ public class DemandController : Controller
             FlashMessage.SendError("You can't respond to this demand. It is not sent to you");
             return RedirectToAction("Received");
         }
-
+        if (demand.status!= Demand.Response.pending){
+            FlashMessage.SendError("You can't respond to this demand. It is already respnded or cancelled");
+            return RedirectToAction("Received");
+        }
         if (demand.Carpool.NumberOfPlaces <= 0 )
         {
             FlashMessage.SendError("There is no enough places to accept more demands");
@@ -217,6 +220,37 @@ public class DemandController : Controller
         demand.status = Demand.Response.refused;
         _context.SaveChanges(); 
         return RedirectToAction("Received");
+    }
+    public IActionResult Cancel(Guid id){
+        var demand = _context.demands
+            .Include(c => c.Carpool)
+            .FirstOrDefault(c => c.Id == id);
+        string UserId = GetCurrentUser();
+        if (demand == null)
+        {
+            FlashMessage.SendError("Demand is not found! Probably deleted by owner");
+            return RedirectToAction("Received");
+        }
+        if (UserId != demand.PassengerId)
+        {
+            FlashMessage.SendError("You can't cancel to this demand. It is not you who sent it");
+            return RedirectToAction("Received");
+        }
+        if (demand.status == Demand.Response.refused){
+            FlashMessage.SendError("Can't cancel already refused demand!");
+            return RedirectToAction("Sent");
+        }
+        if (demand.status == Demand.Response.cancelled){
+            FlashMessage.SendError("Can't Cancel Already Candelled Demand!");
+            return RedirectToAction("Sent");
+        }
+        if (demand.status != Demand.Response.accepted){
+            demand.Carpool.NumberOfPlaces++;
+        }
+        demand.status = Demand.Response.cancelled;
+        FlashMessage.SendSuccess("You have cancelled this demand!");
+        _context.SaveChanges(); 
+        return RedirectToAction("Sent");
     }
     public IActionResult Sent()
     {

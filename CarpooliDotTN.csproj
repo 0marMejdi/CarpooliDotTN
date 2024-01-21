@@ -6,8 +6,6 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.23" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.14" />
     <ItemGroup>
       <PackageReference Include="MailKit" Version="4.3.0" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.15" />

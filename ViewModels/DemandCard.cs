@@ -39,7 +39,7 @@ public class DemandCard
                     demandCard.Carpool = true;
                     demandCard.Accept = false;
                     demandCard.Decline = false;
-                    demandCard.Cancel = demand.status == Demand.Response.pending;
+                    demandCard.Cancel = demand.status != Demand.Response.refused && demand.status!=Demand.Response.cancelled;
                     demandCard.Header = true;
                     demandCard.State = true;
                     demandCards.Add(demandCard);

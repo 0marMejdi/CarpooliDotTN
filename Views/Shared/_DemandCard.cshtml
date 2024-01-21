@@ -60,6 +60,11 @@
                             buttonText = "Refused";
                             buttonColor = "btn-danger";
                         }
+                        if (Model.Demand.status == Demand.Response.cancelled)
+                        {
+                            buttonText="Cancelled";
+                            buttonColor="btn-dark";
+                        }
                         <div class="btn mx-1 btn-secondary @buttonColor disabled">
                             @buttonText
                         </div>

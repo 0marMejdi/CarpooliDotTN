@@ -9,14 +9,68 @@
 <h2>Demand Detail</h2>
 @if (ViewBag.IsEditable??false)
 {
-    <h4> You have Applied  at this carpool </h4>
+    <h4> You have Applied for this carpool below</h4>
+    <h5> @Model.SubmissionTime</h5>
+    <div class="col-lg-8">
+        @Html.Partial("_CarpoolCard",(CarpoolCard) ViewBag.CarpoolCard)
+    </div>
+    <hr />
+    if (Model.status==Demand.Response.pending){
+        <p>Your demand is currently <span class="btn btn-outline-warning disabled">pending</span>. The Author of that carpool didn't answer you yet.</p>
+        <p>You Can Wait for his reply, or cancel your demand (You won't be able to join again) </p>
+        <br />
+        <a href="@Url.Action("Cancel","Demand",new{id=Model.Id})" class="btn btn-dark"> Cancel Demand </a>
+    }
+    if (Model.status==Demand.Response.accepted){
+        <p>Your demand has been <span class="btn btn-outline-success disabled">accepted</span>. Contact the Author of the carpool for further details.</p>
+        <p>You Are still able to cancel your demand and your reservation will be freed (You won't be able to join again) </p>
+        <br />
+        <a href="@Url.Action("Cancel","Demand",new{id=Model.Id})" class="btn btn-dark"> Cancel Demand </a>
+    }
+    if (Model.status==Demand.Response.refused){
+        <p>Your demand has been <span class="btn btn-outline-danger disabled">refused</span>. You won't be able to join this Carpool.</p>
+    }
+    if (Model.status==Demand.Response.cancelled){
+        <p>You have <span class="btn btn-outline-dark disabled">cancelled</span> this demand. You won't be able to join this Carpool or send a demand again.</p>
+    }
     
-    @Html.Partial("_CarpoolCard",(CarpoolCard) ViewBag.CarpoolCard)
     
-    <a href="#" class="btn btn-dark"> Cancel Demand </a>
     
 }
 else
 {
-    <h4> you cant touch this</h4>
+    
+    <h4> You have received application for this carpool below</h4>
+    <h5> @Model.SubmissionTime</h5>
+    <div class="col-lg-8">
+        @Html.Partial("_CarpoolCard",(CarpoolCard) ViewBag.CarpoolCard)
+    </div>
+    <hr />
+    if (Model.status==Demand.Response.pending){
+        <p>You haven't replied at this demand yet.</p>
+        @if(Model.Carpool.NumberOfPlaces<=0){
+            <p>There is no places left for this carpool. You can either Refuse this demand, or leave it pending until some places are free then be able to accept it</p>
+        }
+        else{
+            <p>You can choose to accept this applicant, so he will join this carpool.</p>
+            <p>Or you can choose to refuse his application, so he won't be able to join you or re-send another application</p>
+        }
+        <br />
+        
+        @if(Model.Carpool.NumberOfPlaces<=0){<a href="@Url.Action("Accept","Demand",new{id=Model.Id})" class="btn btn-dark"> Cancel Demand </a>}
+        <a href="@Url.Action("Decline","Demand",new{id=Model.Id})" class="btn btn-dark"> Cancel Demand </a>
+    }
+    if (Model.status==Demand.Response.accepted){
+        <p>You have <span class="btn btn-outline-success disabled">approved</span> this caroool demand. Contact the passenger for further details.</p>
+        <br />
+    
+    }
+    if (Model.status==Demand.Response.refused){
+        <p>Your have <span class="btn btn-outline-danger disabled">refused</span> this caroool demand. The applicant can't join or re-send another demand</p>
+    }
+    if (Model.status==Demand.Response.cancelled){
+        <p>This demand has been <span class="btn btn-outline-dark disabled">cancelled</span> by the applicant. You won't be able to respond, and  the applicant can't join or re-send another demand.</p>
+    
+    }
+    
 }

@@ -28,8 +28,8 @@
     </div>
     <div class="card-footer d-flex justify-content-between"> 
    @if (Model.SeeCarpool){<a  class="btn btn-outline-info mx-1"  href="@Url.Action("Details","Carpool",new {id=Model.Carpool.Id})">More...</a>}
-   @if (Model.Apply){<a class="btn btn-warning mx-1" href="@Url.Action("Apply","Demand",new {id=Model.Carpool.Id})">Apply Carpool</a>}
-   @if (Model.SeeApplication){<a class="btn btn-warning mx-1" href="@Url.Action("Details","Demand",new {id=Model.DemandId})">See Application</a>}
+   @if (Model.Apply){<a class="btn btn-warning mx-1" href="@Url.Action("Apply","Demand",new {id=Model.Carpool.Id})">Apply</a>}
+   @if (Model.SeeApplication){<a class="btn btn-outline-warning mx-1" href="@Url.Action("Details","Demand",new {id=Model.DemandId})">See Application</a>}
    
         
     </div>

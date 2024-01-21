@@ -14,7 +14,7 @@ namespace CarpooliDotTN.Models
         
         [ForeignKey("Carpool")]
         public Guid CarpoolId { get; set; }
-        public enum Response { pending,accepted,refused }
+        public enum Response { pending,accepted,refused,cancelled }
         public Response status { get; set; }
         public DateTime SubmissionTime { get; set; }
         [InverseProperty("Demands")]
