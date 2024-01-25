@@ -7,6 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="NewFolder1\**" />
+      <Content Remove="NewFolder1\**" />
+      <EmbeddedResource Remove="NewFolder1\**" />
+      <None Remove="NewFolder1\**" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="MailKit" Version="4.3.0" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.15" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.15" />

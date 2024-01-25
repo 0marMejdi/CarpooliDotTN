@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CarpooliDotTN.Services;
+using CarpooliDotTN.DAL.IRepositories;
+using CarpooliDotTN.DAL.Repositories;
+using CarpooliDotTN.DAL.IServices;
+using CarpooliDotTN.DAL.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 CarpooliDbContext.InitializeDatabase();
@@ -17,6 +21,11 @@ builder.Services.AddDefaultIdentity<User>(options =>
     .AddEntityFrameworkStores<CarpooliDbContext>();
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<CarpooliDotTN.Services.IEmailSender, EmailSender>(); ;
+builder.Services.AddScoped<IDemandRepository, DemandRepository>();
+builder.Services.AddScoped<ICarpoolRepository, CarpoolRepository>();
+builder.Services.AddScoped<ICarpoolService, CarpoolService>();
+builder.Services.AddScoped<IDemandService, DemandService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
