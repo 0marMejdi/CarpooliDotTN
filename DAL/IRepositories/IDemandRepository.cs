@@ -13,7 +13,7 @@ namespace CarpooliDotTN.DAL.IRepositories
         Task DeleteAsync(Guid id);
         Task<Demand> GetDemandByPassengerAndCarpoolAsync(string passengerId, Guid carpoolId);
         bool IsApplied(string userId, Guid carpoolId);
-
+        Task<List<Demand>> GetDemandsByOwnerIdAsync(string userId) ;
     }
 
 }

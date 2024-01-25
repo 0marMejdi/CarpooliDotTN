@@ -13,6 +13,6 @@ namespace CarpooliDotTN.DAL.IServices
         Task DeleteDemandAsync(Guid id);
         Task RemoveDemandAsync(string v, Guid id);
         bool IsApplied(string userId, Guid carpoolId);
-
+        Task<List<Demand>> GetDemandsByOwnerIdAsync(string userId);
     }
 }

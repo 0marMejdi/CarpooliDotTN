@@ -67,5 +67,9 @@ namespace CarpooliDotTN.DAL.Services
             // Assuming you have a method in the repository that checks if the user applied to the carpool
             return _demandRepository.IsApplied(userId, carpoolId);
         }
+        public async Task<List<Demand>> GetDemandsByOwnerIdAsync(string userId)
+        {
+            return await _demandRepository.GetDemandsByOwnerIdAsync(userId);
+        }
     }
 }

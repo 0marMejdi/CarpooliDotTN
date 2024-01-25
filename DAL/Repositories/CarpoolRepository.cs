@@ -15,7 +15,7 @@ namespace CarpooliDotTN.DAL.Repositories
 
         public async Task<IQueryable<Carpool>> GetQueryableCarpoolsAsync()
         {
-            return _context.carpools.AsQueryable();
+            return _context.carpools.Include(c => c.Demands).Include(c => c.Owner).AsQueryable();
         }
 
         public async Task<IQueryable<Carpool>> GetQueryableCarpoolsWithDemandsAsync()
@@ -25,12 +25,12 @@ namespace CarpooliDotTN.DAL.Repositories
 
         public async Task<Carpool> GetCarpoolByIdAsync(Guid id)
         {
-            return await _context.carpools.Include(c => c.Demands).FirstOrDefaultAsync(c => c.Id == id);
+            return await _context.carpools.Include(c => c.Demands).Include(c => c.Owner).FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<IEnumerable<string>> GetDistinctCitiesAsync()
         {
-            return await _context.carpools.Select(c => c.DepartureCity).Distinct().ToListAsync();
+            return await _context.carpools.Include(c => c.Demands).Include(c => c.Owner).Select(c => c.DepartureCity).Distinct().ToListAsync();
         }
 
         public async Task AddCarpoolAsync(Carpool carpool)
@@ -42,7 +42,7 @@ namespace CarpooliDotTN.DAL.Repositories
         public async Task UpdateCarpoolAsync(Carpool updatedCarpool)
         {
             // Retrieve the existing carpool from the database
-            var existingCarpool = await _context.carpools.FindAsync(updatedCarpool.Id);
+            var existingCarpool = await _context.carpools.Include(c => c.Demands).Include(c => c.Owner).Where(c=> c.Id == updatedCarpool.Id).FirstOrDefaultAsync();
 
             if (existingCarpool == null)
             {
@@ -66,7 +66,7 @@ namespace CarpooliDotTN.DAL.Repositories
 
         public async Task DeleteCarpoolAsync(Guid id)
         {
-            var carpool = await _context.carpools.FindAsync(id);
+            var carpool = await _context.carpools.Include(c => c.Demands).Include(c => c.Owner).Where(c => c.Id == id).FirstOrDefaultAsync();
             if (carpool != null)
             {
                 _context.carpools.Remove(carpool);
@@ -76,7 +76,7 @@ namespace CarpooliDotTN.DAL.Repositories
 
         public bool CarpoolExists(Guid id)
         {
-            return _context.carpools.Any(e => e.Id == id);
+            return _context.carpools.Include(c => c.Demands).Any(e => e.Id == id);
         }
     }
 

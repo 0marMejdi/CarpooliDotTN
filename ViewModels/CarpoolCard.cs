@@ -36,8 +36,6 @@ public class CarpoolCard
             foreach(var carpool in carpools)
             {
                 CarpoolCard carpoolCard = new CarpoolCard(carpool);
-                
-                
                 carpoolCard.SeeCarpool = true;
                 carpoolCard.Availabilty = true;
                 if (carpoolCard.Carpool.OwnerId==userId){
