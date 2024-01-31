@@ -187,7 +187,7 @@ public class CarpoolController : Controller
         carpool.NumberOfPlaces = 4;
         carpool.IsOpen = true;
         carpool.OwnerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        _carpoolService.AddCarpoolAsync(carpool);
+        await _carpoolService.AddCarpoolAsync(carpool);
         return RedirectToAction("ListAll");
     }
     public async Task<IActionResult> Edit(Guid id)
@@ -221,7 +221,7 @@ public class CarpoolController : Controller
         return View(editedCarpool);
     }
     
-    public  IActionResult Delete(Guid id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
         Carpool carpool = _carpoolService.GetCarpoolByIdAsync(id).Result;
@@ -237,9 +237,9 @@ public class CarpoolController : Controller
         }
         foreach (var demand in carpool.Demands)
         {
-            _demandService.DeleteDemandAsync(demand.Id);
+           await  _demandService.DeleteDemandAsync(demand.Id);
         }
-        _carpoolService.DeleteCarpoolAsync(carpool.Id);
+        await _carpoolService.DeleteCarpoolAsync(carpool.Id);
         return RedirectToAction("ListAll");
     }
 
