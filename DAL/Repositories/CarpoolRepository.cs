@@ -66,7 +66,7 @@ namespace CarpooliDotTN.DAL.Repositories
 
         public async Task DeleteCarpoolAsync(Guid id)
         {
-            var carpool = await _context.carpools.Include(c => c.Demands).Include(c => c.Owner).Where(c => c.Id == id).FirstOrDefaultAsync();
+            var carpool =  _context.carpools.Include(c => c.Demands).Include(c => c.Owner).Where(c => c.Id == id).FirstOrDefault();
             if (carpool != null)
             {
                 _context.carpools.Remove(carpool);

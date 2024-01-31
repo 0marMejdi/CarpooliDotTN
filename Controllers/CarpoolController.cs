@@ -192,7 +192,7 @@ public class CarpoolController : Controller
     }
     public async Task<IActionResult> Edit(Guid id)
     {
-        var carpool = await _carpoolService.GetCarpoolByIdAsync(id);
+        Carpool carpool = _carpoolService.GetCarpoolByIdAsync(id).Result;
 
         if (carpool == null || carpool.OwnerId != GetCurrentUser())
         {
@@ -204,7 +204,7 @@ public class CarpoolController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(Guid id, Carpool editedCarpool)
+    public async Task<IActionResult> Edit(Guid id, Carpool editedCarpool)
     {
         string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         Carpool existingCarpool = _carpoolService.GetCarpoolByIdAsync(id).Result;
@@ -213,7 +213,7 @@ public class CarpoolController : Controller
         {
             return NotFound(); // Carpool not found or unauthorized
         }
-        _carpoolService.UpdateCarpoolAsync(editedCarpool);
+        await _carpoolService.UpdateCarpoolAsync(editedCarpool);
         return RedirectToAction("List"); // Redirect to the list view or another page
 
 
