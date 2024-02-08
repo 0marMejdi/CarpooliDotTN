@@ -58,6 +58,11 @@
                 <span asp-validation-for="Input.Gender" class="text-danger"></span>
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <div>
+                <p>
+                    <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Log In</a>
+                </p>
+            </div>
         </form>
     </div>
      <div class="col-md-8">

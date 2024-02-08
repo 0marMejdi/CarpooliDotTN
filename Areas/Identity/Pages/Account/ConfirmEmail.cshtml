@@ -1,8 +1,11 @@
 ﻿@page
 @model ConfirmEmailModel
 @{
-    ViewData["Title"] = "Confirm email";
+    ViewData["Title"] = "Confirmed email";
 }
-
-<h1>@ViewData["Title"]</h1>
+<div style=" margin-left: 375px; margin-top:50px">
+<h1 style=" margin-left: 100px" >@ViewData["Title"]</h1>
+    <p style =" margin-left: 100px"> You can log in now! </p>
+<img src="/assets/img/tick.jpg" class="img-fluid animated" alt="" style=" width: 500px; ">
+</div>
 <partial name="_StatusMessage" model="Model.StatusMessage" />
