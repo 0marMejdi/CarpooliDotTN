@@ -1,4 +1,9 @@
-﻿<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+﻿@using Microsoft.AspNetCore.Identity;
+
+
+@inject SignInManager<User> SignInManager
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container-fluid">
         <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CarpooliDotTN</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -18,12 +23,15 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Carpool" asp-action="List">Carpools</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Demand" asp-action="Received">Received Carpool Demands</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Demand" asp-action="Sent">Sent Carpool Demands</a>
-                </li>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Demand" asp-action="Received">Received Carpool Demands</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Demand" asp-action="Sent">Sent Carpool Demands</a>
+                    </li>
+                }
             </ul>
             <div>@Html.Partial("_LoginPartial")</div>
         </div>
