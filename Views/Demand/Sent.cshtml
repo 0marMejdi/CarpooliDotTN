@@ -1,46 +1,16 @@
-﻿@model IEnumerable<CarpooliDotTN.Models.Demand>
+﻿
+@model List<CarpooliDotTN.ViewModels.DemandCard>
+<div class="container">
+    <div class="d-flex justify-content-between">
+        <h1>Sent Demands</h1>
+    </div>
+    <hr>
+    <div class="card-list col-md-6 col-sm-12">
+        @foreach (var item in Model)
+        {
+            @Html.Partial("_DemandCard", (CarpooliDotTN.ViewModels.DemandCard)item)
+        }
+    </div>
 
-@{
-    ViewData["Title"] = "Sent";
-}
 
-<h1>Sent Applications</h1>
-
-<table class="table">
-    <thead>
-        <tr>
-           <th>
-                @Html.DisplayNameFor(model => model.SubmissionTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Carpool)
-            </th>
-            <th>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.status)
-            </th>
-
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SubmissionTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Carpool.Id)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.Carpool.DepartureCity) = >  @Html.DisplayFor(modelItem => item.Carpool.ArrivalCity)
-            </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.status)
-                </td>
-
-        </tr>
-}
-    </tbody>
-</table>
+</div>

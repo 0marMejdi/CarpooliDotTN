@@ -362,16 +362,24 @@ public class DemandController : Controller
     {
         try
         {
-            string userId = GetCurrentUser();
-            var applications = await _demandService.GetDemandsBySenderAsync(userId);
+            var userId = GetCurrentUser();
+            var user = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
 
-            return View(applications);
+            if (user == null)
+            {
+                FlashMessage.SendError("Error while getting your account information.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            var demands = await _demandService.GetDemandsBySenderAsync(userId) ?? new List<Demand>();
+
+            return View(DemandCard.GetCardsForSender(demands));
         }
         catch (Exception ex)
         {
             // Handle exceptions appropriately (log, display an error page, etc.)
             FlashMessage.SendError("An error occurred while processing your request.");
-            return RedirectToAction("List");
+            return RedirectToAction("Index");
         }
     }
 
